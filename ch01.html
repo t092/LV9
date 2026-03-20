@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="互動式 AI 歷史教學遊戲 — 現代國家的建立，透過遊戲化方式學習美國獨立、法國大革命、拿破崙、德國統一、義大利統一">
+  <title>⏳ 時間旅行者 — 現代國家的建立</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <span class="icon">⏳</span> 時間旅行者
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="score-display">
+    <span class="star-icon">⭐</span>
+    <span id="total-score">0</span> 分
+  </div>
+</nav>
+
+<!-- ====== LEVEL 1: 美國獨立 ====== -->
+<div class="screen active" id="screen-level-1">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 1 / 5</div>
+      <h1 class="level-title">🗽 美國獨立革命</h1>
+      <div class="level-era">1773 ~ 1789 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-1"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="1" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          17 世紀以來，歐洲人陸續移民北美洲，其中大批英國移民前往東岸，建立了 <strong>13 州殖民地</strong>。
+          18 世紀中期，英國為了解決對外戰爭造成的財政負擔，向北美殖民地徵收新稅。但殖民地人民認為他們在英國國會沒有代表，英國政府無權任意徵稅，因此拒絕納稅。
+        </p>
+        <p class="story-text">
+          1773 年，殖民地人民將英國商船運至波士頓港口的茶葉倒入海中，史稱「<strong>波士頓茶葉事件</strong>」，這是北美殖民地人民公開反抗英國的開始。
+          1776 年 7 月 4 日，北美 13 州的代表在費城發表「<strong>獨立宣言</strong>」，宣布脫離英國統治，由<strong>華盛頓</strong>領導殖民地軍隊與英軍作戰。殖民地軍隊在法國等國幫助下獲勝，英國承認<strong>美利堅合眾國</strong>獨立。
+        </p>
+        <p class="story-text">
+          之後，美國召開<strong>制憲會議</strong>，制定世界上第一部成文憲法，確立行政、立法與司法三權分立、互相制衡的制度，成為後來不少民主共和國仿效的典範。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/boston_tea_party.jpg', '波士頓茶葉事件 (1773年)')">
+            <img src="images/boston_tea_party.jpg" alt="波士頓茶葉事件">
+            <div class="story-image-caption">波士頓茶葉事件 — 民眾將茶葉倒入海中</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/colonial_map.jpg', '北美13州殖民地地圖')">
+            <img src="images/colonial_map.jpg" alt="北美13州殖民地">
+            <div class="story-image-caption">17～18 世紀北美 13 州殖民地圖</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/declaration_of_independence.jpg', '獨立宣言簽署')">
+            <img src="images/declaration_of_independence.jpg" alt="獨立宣言">
+            <div class="story-image-caption">1776 年 7 月 4 日 — 獨立宣言發表</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="1" data-step="2">
+      <div class="quiz-card" id="l1-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">北美殖民地人民拒絕英國徵稅的主要原因是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q1-exp')"><span class="option-letter">A</span> 他們已經繳了太多稅</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l1-q1-exp')"><span class="option-letter">B</span> 他們在英國國會沒有代表，無代表不納稅</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q1-exp')"><span class="option-letter">C</span> 他們不認為英國是合法政府</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q1-exp')"><span class="option-letter">D</span> 他們想加入法國</button>
+        </div>
+        <div class="quiz-explanation" id="l1-q1-exp">✅ 殖民地人民主張「無代表，不納稅」，因為他們在英國國會沒有代表，認為英國政府無權任意徵稅。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="1" data-step="3">
+      <div class="quiz-card" id="l1-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">「波士頓茶葉事件」發生在哪一年？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q2-exp')"><span class="option-letter">A</span> 1765 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l1-q2-exp')"><span class="option-letter">B</span> 1773 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q2-exp')"><span class="option-letter">C</span> 1776 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q2-exp')"><span class="option-letter">D</span> 1783 年</button>
+        </div>
+        <div class="quiz-explanation" id="l1-q2-exp">✅ 1773 年，殖民地人民將英國商船上的茶葉倒入波士頓港中，公開反抗英國政府的課稅政策。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="1" data-step="4">
+      <div class="quiz-card" id="l1-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">美國獨立後制定的憲法，確立了什麼重要制度？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q3-exp')"><span class="option-letter">A</span> 君主立憲制</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q3-exp')"><span class="option-letter">B</span> 議會內閣制</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l1-q3-exp')"><span class="option-letter">C</span> 三權分立、互相制衡</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l1-q3-exp')"><span class="option-letter">D</span> 中央集權制</button>
+        </div>
+        <div class="quiz-explanation" id="l1-q3-exp">✅ 美國制憲會議制定了世界上第一部成文憲法，確立行政、立法與司法三權分立、相互制衡的制度。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">前往排序挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Sort Challenge -->
+    <div class="level-step" data-level="1" data-step="5">
+      <div class="sort-container" id="l1-sort">
+        <div class="quiz-number">排序挑戰</div>
+        <div class="sort-instruction">📋 請將以下美國建國相關事件，按時間先後順序排列（由早到晚拖拽排序）：</div>
+        <div class="sort-items" id="l1-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('l1')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-1" onclick="goToLevel(2)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 2: 法國大革命與拿破崙 ====== -->
+<div class="screen" id="screen-level-2">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 2 / 5</div>
+      <h1 class="level-title">🇫🇷 法國大革命與拿破崙</h1>
+      <div class="level-era">1789 ~ 1815 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-2"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="2" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          中世紀以來，法國社會分為教士、貴族和平民三個階級。教士與貴族擁有大量土地與財富，窮苦的平民卻須負擔沉重的賦稅，社會極度不平等。18 世紀末，法國爆發嚴重的財政困難。法王<strong>路易十六</strong>為了徵收新稅，召開<strong>三級會議</strong>。但平民代表不滿投票方式，另組「國民會議」。
+        </p>
+        <p class="story-text">
+          <strong>1789 年 7 月 14 日</strong>，巴黎民眾攻陷<strong>巴士底監獄</strong>，揭開了法國大革命的序幕。革命爆發後，國民會議接掌國政，發表「<strong>人權宣言</strong>」，以保障人權為主要訴求。歐洲各國君主擔憂革命浪潮蔓延，組成反法聯軍進攻法國。法國新政府改行共和體制，處死路易十六，並進行恐怖統治。
+        </p>
+        <p class="story-text">
+          法國的混亂局勢，造就了<strong>拿破崙</strong>的崛起。拿破崙曾數度擊敗反法聯軍，在 <strong>1804 年稱帝</strong>。他以軍事力量征服歐洲大部分地區，在征服的地區頒行<strong>拿破崙法典</strong>，將「自由、平等、博愛」的精神傳播至歐洲各地。但拿破崙遠征俄國失敗，1814 年各國召開<strong>維也納會議</strong>，以「正統」為原則恢復各國王室統治權。隔年拿破崙短暫復辟（百日王朝），最終在 1815 年<strong>滑鐵盧之役</strong>被歐洲聯軍徹底擊敗。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/three_estates.jpg', '法國社會不平等的三階級 — 教士與貴族壓在平民身上')">
+            <img src="images/three_estates.jpg" alt="三階級諷刺漫畫">
+            <div class="story-image-caption">不平等的三階級 — 法國諷刺漫畫</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/bastille.jpg', '攻陷巴士底監獄 (1789年7月14日)')">
+            <img src="images/bastille.jpg" alt="攻陷巴士底監獄">
+            <div class="story-image-caption">1789 年 — 攻陷巴士底監獄</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/napoleon.jpg', '拿破崙稱帝 (1804年)')">
+            <img src="images/napoleon.jpg" alt="拿破崙">
+            <div class="story-image-caption">拿破崙 — 法蘭西皇帝</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="2" data-step="2">
+      <div class="quiz-card" id="l2-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">法國大革命的導火線事件是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q1-exp')"><span class="option-letter">A</span> 拿破崙稱帝</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l2-q1-exp')"><span class="option-letter">B</span> 巴黎民眾攻陷巴士底監獄</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q1-exp')"><span class="option-letter">C</span> 維也納會議召開</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q1-exp')"><span class="option-letter">D</span> 發表人權宣言</button>
+        </div>
+        <div class="quiz-explanation" id="l2-q1-exp">✅ 1789年7月14日，巴黎民眾攻陷象徵君主專制的巴士底監獄，揭開了法國大革命的序幕。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="2" data-step="3">
+      <div class="quiz-card" id="l2-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">法國「人權宣言」的主要內容不包括以下哪一項？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q2-exp')"><span class="option-letter">A</span> 人人生而自由平等</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q2-exp')"><span class="option-letter">B</span> 天賦人權不可剝奪</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l2-q2-exp')"><span class="option-letter">C</span> 實行君主專制</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q2-exp')"><span class="option-letter">D</span> 法律之前人人平等</button>
+        </div>
+        <div class="quiz-explanation" id="l2-q2-exp">✅ 人權宣言主張自由、平等、天賦人權以及法律之前人人平等，正是為了推翻君主專制。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="2" data-step="4">
+      <div class="quiz-card" id="l2-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">拿破崙對歐洲最重要的影響是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q3-exp')"><span class="option-letter">A</span> 統一了全歐洲</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l2-q3-exp')"><span class="option-letter">B</span> 頒行拿破崙法典，傳播自由平等博愛精神，並激起各民族意識</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q3-exp')"><span class="option-letter">C</span> 消滅了所有歐洲王室</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l2-q3-exp')"><span class="option-letter">D</span> 建立了歐洲聯盟</button>
+        </div>
+        <div class="quiz-explanation" id="l2-q3-exp">✅ 拿破崙頒行法典推動改革，將法國大革命「自由、平等、博愛」精神傳播至歐洲各地，同時也激起被占領地人民的民族意識。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">前往排序挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Sort Challenge -->
+    <div class="level-step" data-level="2" data-step="5">
+      <div class="sort-container" id="l2-sort">
+        <div class="quiz-number">排序挑戰</div>
+        <div class="sort-instruction">📋 請將以下法國大革命相關事件，按時間先後排列：</div>
+        <div class="sort-items" id="l2-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('l2')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-2" onclick="goToLevel(3)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 3: 拉丁美洲獨立 ====== -->
+<div class="screen" id="screen-level-3">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 3 / 5</div>
+      <h1 class="level-title">🌎 拉丁美洲獨立運動</h1>
+      <div class="level-era">19 世紀初期</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-3"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="3" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          19 世紀時，拉丁美洲人民不滿<strong>西班牙、葡萄牙</strong>的殖民政府長期壟斷資源。他們一方面受<strong>民族主義</strong>與<strong>啟蒙運動</strong>思想的影響，另一方面受<strong>美國獨立</strong>與<strong>法國大革命</strong>的鼓舞，趁拿破崙席捲歐洲、西班牙與葡萄牙自顧不暇時，在<strong>玻利瓦</strong>等人的領導下，紛紛宣告獨立。
+        </p>
+        <p class="story-text">
+          1823 年，美國總統<strong>門羅</strong>發表「<strong>門羅宣言</strong>」，主張美洲事務應由美洲國家自行解決，反對歐洲國家干預。這項宣言雖鞏固了拉丁美洲的獨立，但拉丁美洲也因為美國大力介入，而逐漸受到美國控制。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/latin_america_map.jpg', '拉丁美洲各國獨立形勢圖')">
+            <img src="images/latin_america_map.jpg" alt="拉丁美洲獨立形勢圖">
+            <div class="story-image-caption">拉丁美洲各國獨立形勢圖</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/bolivar.jpg', '玻利瓦 — 拉丁美洲獨立運動的重要人物')">
+            <img src="images/bolivar.jpg" alt="玻利瓦">
+            <div class="story-image-caption">玻利瓦 — 拉丁美洲獨立之父</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/img_21.jpeg', '門羅宣言漫畫 (1896年)')">
+            <img src="images/img_21.jpeg" alt="門羅宣言">
+            <div class="story-image-caption">門羅宣言漫畫 — 警告歐洲列強</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="3" data-step="2">
+      <div class="quiz-card" id="l3-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">拉丁美洲獨立運動受到哪些因素影響？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q1-exp')"><span class="option-letter">A</span> 只受美國獨立的影響</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q1-exp')"><span class="option-letter">B</span> 只受法國大革命的影響</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l3-q1-exp')"><span class="option-letter">C</span> 受民族主義、啟蒙運動、美國獨立與法國大革命的共同影響</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q1-exp')"><span class="option-letter">D</span> 完全是自發性的運動</button>
+        </div>
+        <div class="quiz-explanation" id="l3-q1-exp">✅ 拉丁美洲獨立運動受到民族主義、啟蒙運動思想的影響，同時也受到美國獨立和法國大革命的鼓舞。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="3" data-step="3">
+      <div class="quiz-card" id="l3-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">「門羅宣言」的核心主張是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l3-q2-exp')"><span class="option-letter">A</span> 美洲事務應由美洲國家自行解決，反對歐洲干預</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q2-exp')"><span class="option-letter">B</span> 所有殖民地應回歸母國統治</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q2-exp')"><span class="option-letter">C</span> 美國將征服整個美洲</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q2-exp')"><span class="option-letter">D</span> 美洲各國應結成同盟對抗亞洲</button>
+        </div>
+        <div class="quiz-explanation" id="l3-q2-exp">✅ 1823年門羅宣言主張美洲事務由美洲國家自行解決，反對歐洲國家干預美洲事務。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="3" data-step="4">
+      <div class="quiz-card" id="l3-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">被稱為拉丁美洲獨立運動重要領導人物的是誰？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q3-exp')"><span class="option-letter">A</span> 華盛頓</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q3-exp')"><span class="option-letter">B</span> 拿破崙</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l3-q3-exp')"><span class="option-letter">C</span> 玻利瓦</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l3-q3-exp')"><span class="option-letter">D</span> 俾斯麥</button>
+        </div>
+        <div class="quiz-explanation" id="l3-q3-exp">✅ 玻利瓦是推動拉丁美洲各國獨立的重要人物，被尊為「拉丁美洲的解放者」。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">前往填空挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Drag-Fill Challenge -->
+    <div class="level-step" data-level="3" data-step="5">
+      <div class="fill-blank-card" id="l3-fill">
+        <div class="quiz-number">拖拉填空挑戰</div>
+        <div class="sort-instruction">📋 將上方的詞彙拖拉到下方正確的空格中：</div>
+        <div class="drag-options" id="l3-drag-options"></div>
+        <div class="fill-blank-sentence">
+          1823 年，美國總統 <span class="drop-zone" id="l3-drop-1">？</span> 發表宣言，主張美洲事務應由美洲國家自行解決。拉丁美洲獨立運動的重要領導人是 <span class="drop-zone" id="l3-drop-2">？</span>。
+        </div>
+        <button class="btn-check-fill" onclick="checkDragFill('l3')">✔️ 確認答案</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-3" onclick="goToLevel(4)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 4: 德國統一 ====== -->
+<div class="screen" id="screen-level-4">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 4 / 5</div>
+      <h1 class="level-title">🏰 德國的統一</h1>
+      <div class="level-era">1815 ~ 1871 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-4"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="4" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          中世紀以來，日耳曼地區小國林立，各自為政。拿破崙稱霸歐洲期間，將其合併為三十多邦。維也納會議後，奧國、普魯士王國聯合部分邦國組成「<strong>日耳曼邦聯</strong>」。
+        </p>
+        <p class="story-text">
+          在<strong>民族主義</strong>風潮下，知識分子鼓吹日耳曼的統一。普魯士進一步提倡「<strong>關稅同盟</strong>」建立統一關稅，奠定了統一的經濟基礎。
+        </p>
+        <p class="story-text">
+          19 世紀中期，普魯士國王<strong>威廉一世</strong>任命<strong>俾斯麥</strong>為首相。俾斯麥認為日耳曼統一只能靠「<strong>鐵</strong>」（武器）與「<strong>血</strong>」（戰爭）來完成，因此被稱為「鐵血宰相」。在俾斯麥領導下，普魯士先戰勝奧國，又在 1870 年展開<strong>德法戰爭</strong>，隔年擊敗法國，建立<strong>德意志帝國</strong>。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/wilhelm_coronation.jpg', '德皇威廉一世登基圖 (1871年)')">
+            <img src="images/wilhelm_coronation.jpg" alt="威廉一世登基">
+            <div class="story-image-caption">1871 年 — 德皇威廉一世在凡爾賽宮登基</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/german_unification_map.jpg', '德國建國運動示意圖')">
+            <img src="images/german_unification_map.jpg" alt="德國建國示意圖">
+            <div class="story-image-caption">德國建國運動示意圖</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="4" data-step="2">
+      <div class="quiz-card" id="l4-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">俾斯麥為何被稱為「鐵血宰相」？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q1-exp')"><span class="option-letter">A</span> 因為他是鐵匠出身</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l4-q1-exp')"><span class="option-letter">B</span> 因為他主張用「鐵」（武器）與「血」（戰爭）完成統一</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q1-exp')"><span class="option-letter">C</span> 因為他的個性冷酷無情</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q1-exp')"><span class="option-letter">D</span> 因為他建造了很多鐵路</button>
+        </div>
+        <div class="quiz-explanation" id="l4-q1-exp">✅ 俾斯麥認為日耳曼統一只能靠武力（鐵＝武器）和戰爭（血）來完成，因此被稱為「鐵血宰相」。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="4" data-step="3">
+      <div class="quiz-card" id="l4-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">「關稅同盟」對德國統一的意義是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q2-exp')"><span class="option-letter">A</span> 建立了統一的軍隊</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l4-q2-exp')"><span class="option-letter">B</span> 奠定了統一的經濟基礎</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q2-exp')"><span class="option-letter">C</span> 統一了日耳曼的語言</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q2-exp')"><span class="option-letter">D</span> 建立了統一的宗教</button>
+        </div>
+        <div class="quiz-explanation" id="l4-q2-exp">✅ 普魯士提倡的關稅同盟建立了統一的關稅制度，消除各邦之間的貿易壁壘，奠定了日耳曼統一的經濟基礎。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="4" data-step="4">
+      <div class="quiz-card" id="l4-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">德意志帝國成立的關鍵戰役是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q3-exp')"><span class="option-letter">A</span> 滑鐵盧之役</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q3-exp')"><span class="option-letter">B</span> 普奧戰爭</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l4-q3-exp')"><span class="option-letter">C</span> 德法戰爭（普法戰爭）</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l4-q3-exp')"><span class="option-letter">D</span> 克里米亞戰爭</button>
+        </div>
+        <div class="quiz-explanation" id="l4-q3-exp">✅ 1870年展開德法戰爭（普法戰爭），隔年1871年擊敗法國後，普魯士國王在凡爾賽宮即位為德意志帝國皇帝。</div>
+      </div>
+      <button class="btn-next-level" id="btn-next-4" onclick="goToLevel(5)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 5: 義大利統一 ====== -->
+<div class="screen" id="screen-level-5">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 5 / 5</div>
+      <h1 class="level-title">🏛️ 義大利的統一</h1>
+      <div class="level-era">19 世紀</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-5"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="5" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          義大利半島自中世紀以來，小國林立，未能統一。19 世紀時，<strong>奧國與法國</strong>為統一最大的阻礙。
+        </p>
+        <p class="story-text">
+          19 世紀前期，<strong>馬志尼</strong>等人以「恢復古羅馬光榮」為口號，宣揚民族意識、鼓吹統一。<strong>薩丁尼亞王國</strong>為義大利統一運動的核心。薩丁尼亞國王<strong>伊曼紐二世</strong>與首相<strong>加富爾</strong>共謀富國強兵，排除奧國在義大利的勢力。同時，<strong>加里波底</strong>征服義大利南部，將征服的地區獻給薩丁尼亞國王。
+        </p>
+        <p class="story-text">
+          薩丁尼亞王國逐步控制義大利大部分國土後，於 <strong>1861 年成立義大利王國</strong>。1870 年，義大利王國乘德法戰爭之際，收復被法國控制的<strong>羅馬</strong>，定為首都，完成義大利的統一。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/italian_unification_map.jpg', '義大利統一形勢圖')">
+            <img src="images/italian_unification_map.jpg" alt="義大利統一形勢圖">
+            <div class="story-image-caption">義大利統一形勢圖</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/img_31.jpeg', '馬志尼 — 宣揚民族意識')">
+            <img src="images/img_31.jpeg" alt="馬志尼">
+            <div class="story-image-caption">馬志尼 — 宣揚民族意識</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/img_33.jpeg', '加富爾 — 奠定建國基礎')">
+            <img src="images/img_33.jpeg" alt="加富爾">
+            <div class="story-image-caption">加富爾 — 奠定建國基礎</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="5" data-step="2">
+      <div class="quiz-card" id="l5-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">義大利統一運動的核心是哪個國家？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q1-exp')"><span class="option-letter">A</span> 教皇國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l5-q1-exp')"><span class="option-letter">B</span> 薩丁尼亞王國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q1-exp')"><span class="option-letter">C</span> 兩西西里王國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q1-exp')"><span class="option-letter">D</span> 威尼西亞</button>
+        </div>
+        <div class="quiz-explanation" id="l5-q1-exp">✅ 薩丁尼亞王國是義大利統一運動的核心，由國王伊曼紐二世與首相加富爾領導統一大業。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="5" data-step="3">
+      <div class="quiz-card" id="l5-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">義大利建國三傑中，負責征服義大利南部的是誰？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q2-exp')"><span class="option-letter">A</span> 馬志尼</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l5-q2-exp')"><span class="option-letter">B</span> 加里波底</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q2-exp')"><span class="option-letter">C</span> 加富爾</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q2-exp')"><span class="option-letter">D</span> 伊曼紐二世</button>
+        </div>
+        <div class="quiz-explanation" id="l5-q2-exp">✅ 加里波底是義大利建國三傑之一，他征服了義大利南部，並將征服的地區獻給薩丁尼亞國王。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="5" data-step="4">
+      <div class="quiz-card" id="l5-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">義大利最後收復哪座城市才完成統一？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q3-exp')"><span class="option-letter">A</span> 米蘭</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q3-exp')"><span class="option-letter">B</span> 威尼斯</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'l5-q3-exp')"><span class="option-letter">C</span> 羅馬</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'l5-q3-exp')"><span class="option-letter">D</span> 那不勒斯</button>
+        </div>
+        <div class="quiz-explanation" id="l5-q3-exp">✅ 1870年，義大利王國乘德法戰爭之際，收復被法國控制的羅馬，定為首都，完成義大利的統一。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Match Challenge -->
+    <div class="level-step" data-level="5" data-step="5">
+      <div class="match-container" id="l5-match">
+        <div class="quiz-number">配對挑戰</div>
+        <div class="sort-instruction">🔗 請將義大利建國三傑與他們的貢獻配對（先點左邊，再點右邊）：</div>
+        <div class="match-grid">
+          <div class="match-left" id="l5-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'l5')">馬志尼</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'l5')">加富爾</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'l5')">加里波底</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="l5-match-right">
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'l5')">征服南部地區</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'l5')">宣揚民族意識</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'l5')">奠定建國基礎</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">前往排序挑戰 ➜</button>
+    </div>
+
+    <!-- Step 6: Combined Sort -->
+    <div class="level-step" data-level="5" data-step="6">
+      <div class="sort-container" id="l5combined-sort">
+        <div class="quiz-number">排序挑戰 — 德國與義大利統一</div>
+        <div class="sort-instruction">📋 請將以下德國與義大利統一的重要事件，按時間先後順序排列：</div>
+        <div class="sort-items" id="l5combined-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('l5combined')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-5" onclick="showFinalScreen()">🏆 查看成績 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== FINAL SCREEN ====== -->
+<div class="screen" id="screen-final">
+  <div class="final-screen">
+    <div class="trophy-icon">🏆</div>
+    <div class="final-congrats">
+      <p class="final-congrats-line">🎊 恭喜 <span class="final-username" id="final-username">時間旅行者</span> 通過測驗！</p>
+    </div>
+    <h1 class="final-title">獲得「現代國家形成」歷史大師</h1>
+    <p class="welcome-subtitle" id="final-message">你已成功穿越五段改變世界的歷史，成為真正的歷史大師！</p>
+    <div class="final-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="final-score">0</div>
+        <div class="stat-label">總得分</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-correct">0</div>
+        <div class="stat-label">答對題數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-stars">0</div>
+        <div class="stat-label">獲得星星 ⭐</div>
+      </div>
+    </div>
+    <button class="btn-restart" onclick="restartGame()">🔄 再玩一次</button>
+    <button class="btn-back-portal" onclick="goToPortal()">🏠 回到入口</button>
+  </div>
+</div>
+
+<!-- ====== LEVEL COMPLETE OVERLAY ====== -->
+<div class="level-complete-overlay" id="level-complete-overlay">
+  <div class="level-complete-content">
+    <div class="level-complete-icon" id="complete-icon">🎉</div>
+    <h2 class="level-complete-title" id="complete-title">關卡完成！</h2>
+    <div class="level-complete-score" id="complete-score">+100 分</div>
+    <div class="stars-earned" id="stars-earned"></div>
+    <button class="btn-continue" id="btn-complete-continue">繼續冒險 ➜</button>
+  </div>
+</div>
+
+<!-- ====== LIGHTBOX ====== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

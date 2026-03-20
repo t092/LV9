@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="互動式 AI 歷史教學平台 — 透過遊戲化方式學習歷史，選擇你的章節開始冒險！">
+  <title>⏳ 時間旅行者 — 互動歷史教學平台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div class="portal-page">
+  <div class="portal-header">
+    <div class="portal-icon">⏳</div>
+    <h1 class="portal-title">時間旅行者</h1>
+    <p class="portal-subtitle">互動式 AI 歷史教學平台</p>
+  </div>
+
+  <div class="portal-username-section">
+    <label class="username-label" for="portal-username">✏️ 請輸入你的代號或姓名</label>
+    <input type="text" class="username-input" id="portal-username" placeholder="時間旅行者" maxlength="20">
+  </div>
+
+  <h2 class="portal-section-title">📚 選擇章節</h2>
+
+  <div class="chapter-grid">
+    <a class="chapter-card chapter-available" id="ch01-card" href="#" onclick="enterChapter('ch01.html')">
+      <div class="chapter-badge">L09</div>
+      <div class="chapter-cover">
+        <span class="chapter-emoji">🏛️</span>
+      </div>
+      <div class="chapter-info">
+        <h3 class="chapter-name">現代國家的建立</h3>
+        <p class="chapter-desc">美國獨立、法國大革命、拉丁美洲獨立、德國統一、義大利統一</p>
+        <div class="chapter-meta">
+          <span class="chapter-levels">5 個關卡</span>
+          <span class="chapter-status-tag">✅ 可遊玩</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="chapter-card chapter-locked">
+      <div class="chapter-badge">—</div>
+      <div class="chapter-cover">
+        <span class="chapter-emoji">🔒</span>
+      </div>
+      <div class="chapter-info">
+        <h3 class="chapter-name">即將推出</h3>
+        <p class="chapter-desc">更多精彩章節正在製作中，敬請期待…</p>
+        <div class="chapter-meta">
+          <span class="chapter-levels">— 個關卡</span>
+          <span class="chapter-status-tag coming-soon">🚧 開發中</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter-card chapter-locked">
+      <div class="chapter-badge">—</div>
+      <div class="chapter-cover">
+        <span class="chapter-emoji">🔒</span>
+      </div>
+      <div class="chapter-info">
+        <h3 class="chapter-name">即將推出</h3>
+        <p class="chapter-desc">更多精彩章節正在製作中，敬請期待…</p>
+        <div class="chapter-meta">
+          <span class="chapter-levels">— 個關卡</span>
+          <span class="chapter-status-tag coming-soon">🚧 開發中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-footer">
+    <p>🎓 運用遊戲化學習，讓歷史不再只是背誦！</p>
+  </div>
+</div>
+
+<script>
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.4 + 0.1;
+    }
+    update() {
+      this.x += this.speedX; this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 192, 64, ${this.opacity})`;
+      ctx.fill();
+    }
+  }
+  for (let i = 0; i < 60; i++) particles.push(new Particle());
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+function enterChapter(url) {
+  const name = document.getElementById('portal-username').value.trim() || '時間旅行者';
+  sessionStorage.setItem('userName', name);
+  window.location.href = url;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initParticles();
+  const saved = sessionStorage.getItem('userName');
+  if (saved) document.getElementById('portal-username').value = saved;
+});
+</script>
+
+</body>
+</html>
