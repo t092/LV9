@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="互動式 AI 歷史教學遊戲 — 第一次世界大戰，透過遊戲化方式學習新帝國主義、第一次世界大戰與巴黎和會">
+  <title>⏳ 時間旅行者 — 第一次世界大戰</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-chapter="2">
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <span class="icon">⏳</span> 時間旅行者：第一次世界大戰
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="score-display">
+    <span class="star-icon">⭐</span>
+    <span id="total-score">0</span> 分
+  </div>
+</nav>
+
+<!-- ====== LEVEL 1: 新帝國主義 ====== -->
+<div class="screen active" id="screen-level-1">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 1 / 5</div>
+      <h1 class="level-title">🌍 新帝國主義的擴張</h1>
+      <div class="level-era">19 世紀末期</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-1"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="1" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          19 世紀中期以後，取得工業革命優勢的歐美列強，為了尋找更廣大的<strong>商品市場</strong>與取得<strong>廉價工業原料</strong>，積極向亞洲、非洲與拉丁美洲進行「新帝國主義」的侵略與擴張。
+        </p>
+        <p class="story-text">
+          當時社會上流行「<strong>社會達爾文主義</strong>」，認為人類社會也如同自然界一樣「優勝劣敗，適者生存」。白種人更以「<strong>白種人的負擔</strong>」自居，認為自己有義務將「文明」傳播給其他地區，這更助長了列強向外侵略的氣燄。
+        </p>
+        <p class="story-text">
+          在這波擴張中，<strong>非洲</strong>幾乎被列強瓜分殆盡（僅存衣索比亞與賴比瑞亞獨立）；<strong>亞洲</strong>多數地區也淪為列強的殖民地（例如英國控制印度、法國控制中南半島）；而<strong>拉丁美洲</strong>各國雖然在名義上獲得獨立，但經濟命脈卻幾乎全被歐美資本所控制。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-scramble.jpg', '列強瓜分世界諷刺漫畫')">
+            <img src="images/ch2/ch2-scramble.jpg" alt="列強瓜分世界">
+            <div class="story-image-caption">列強瓜分世界 — 歷史諷刺漫畫</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-burden.jpg', '白種人的負擔')">
+            <img src="images/ch2/ch2-burden.jpg" alt="白種人的負擔">
+            <div class="story-image-caption">白種人的負擔 — 宣揚文明開化</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">開始測驗 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="1" data-step="2">
+      <div class="quiz-card" id="c2-l1-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">19 世紀末期，歐洲列強積極在海外進行「新帝國主義」擴張，其最主要的經濟動機是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q1-exp')"><span class="option-letter">A</span> 為了學習當地古老文明與先進技術</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q1-exp')"><span class="option-letter">B</span> 為了引進當地的農民到歐洲工作</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l1-q1-exp')"><span class="option-letter">C</span> 尋找更廣大的商品市場與廉價的工業原料</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q1-exp')"><span class="option-letter">D</span> 幫助當地建立現代化的民主政府</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l1-q1-exp">✅ 新帝國主義的擴張主要是隨著工業革命發展，歐洲各國需要尋找更龐大的商品市場以及廉價的工業原料。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="1" data-step="3">
+      <div class="quiz-card" id="c2-l1-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">當時列強常以「優勝劣敗，適者生存」的理論來合理化侵略行為，此思想稱為什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q2-exp')"><span class="option-letter">A</span> 啟蒙運動</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l1-q2-exp')"><span class="option-letter">B</span> 社會達爾文主義</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q2-exp')"><span class="option-letter">C</span> 孤立主義</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q2-exp')"><span class="option-letter">D</span> 重商主義</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l1-q2-exp">✅ 歐洲人將達爾文的演化論應用於人類社會，提出「社會達爾文主義」，藉此作為對外侵略與殖民的合理化藉口。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="1" data-step="4">
+      <div class="quiz-card" id="c2-l1-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">新帝國主義時期，歐洲列強對亞洲、非洲與拉丁美洲造成了什麼影響？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q3-exp')"><span class="option-letter">A</span> 亞洲、非洲與拉丁美洲皆順勢快速工業化</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l1-q3-exp')"><span class="option-letter">B</span> 非洲幾乎被瓜分殆盡，亞洲多處淪為殖民地，而拉丁美洲則受到外國的經濟資本控制</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q3-exp')"><span class="option-letter">C</span> 三大洲皆成功抵抗了歐洲勢力的入侵</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l1-q3-exp')"><span class="option-letter">D</span> 非洲與亞洲組成聯盟，成功擊退了歐洲國家</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l1-q3-exp">✅ 在此浪潮下，非洲與亞洲大部分地區淪為列強的殖民地；而拉丁美洲雖保有獨立國家地位，但經濟與資源卻全受列強控制。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">前往地圖配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Map Challenge -->
+    <div class="level-step" data-level="1" data-step="5">
+      <div class="map-challenge-card" id="c2-l1-map">
+        <div class="quiz-number">亞洲殖民地圖挑戰</div>
+        <div class="sort-instruction">🗺️ 請將上方列強標籤，拖拉置入下方亞洲地圖中對應的殖民地位置（印度、越南、印尼、菲律賓）：</div>
+        
+        <div class="drag-options" id="c2-l1-map-options"></div>
+        
+        <div class="map-container">
+          <img src="images/ch2/CH2MAP.jpg" class="map-image" alt="亞洲地圖">
+          <!-- 實際座標（Top/Left）我們會在 CSS 內設定或內聯設定 -->
+          <div class="map-drop-zone" id="map-drop-india" data-answer="英國">印度</div>
+          <div class="map-drop-zone" id="map-drop-vietnam" data-answer="法國">越南</div>
+          <div class="map-drop-zone" id="map-drop-indonesia" data-answer="荷蘭">印尼</div>
+          <div class="map-drop-zone" id="map-drop-philippines" data-answer="美國">菲律賓</div>
+        </div>
+        <button class="btn-check-fill" onclick="checkMapDrag('c2-l1')">✔️ 確認位置</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-1" onclick="goToLevel(2)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 2: 戰雲密布 ====== -->
+<div class="screen" id="screen-level-2">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 2 / 5</div>
+      <h1 class="level-title">⚔️ 戰雲密布與兩大陣營</h1>
+      <div class="level-era">20 世紀初期</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-2"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="2" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          20 世紀初，歐洲列強為了爭奪海外殖民地與巴爾幹半島的利益，相互結盟，形成了兩大互相對抗的軍事陣營：<br>
+          1. <strong>三國同盟</strong>：以德國為首，聯合奧匈帝國與義大利。<br>
+          2. <strong>三國協約</strong>：由英國、法國與俄國組成。
+        </p>
+        <p class="story-text">
+          當時，<strong>巴爾幹半島</strong>的問題最為複雜。此地原本受鄂圖曼帝國統治，但隨著帝國衰弱，各民族紛紛爭取獨立。加上俄國與奧匈帝國皆企圖將勢力伸入此區，使得巴爾幹半島民族與宗教衝突不斷，危機四伏，因此被稱為「<strong>歐洲火藥庫</strong>」。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-alliances.jpg', '一戰前夕歐洲兩大軍事陣營')">
+            <img src="images/ch2/ch2-alliances.jpg" alt="兩大陣營地圖">
+            <div class="story-image-caption">一戰前夕歐洲兩大軍事陣營</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-powder-keg.jpg', '歐洲火藥庫—巴爾幹半島')">
+            <img src="images/ch2/ch2-powder-keg.jpg" alt="巴爾幹火藥庫">
+            <div class="story-image-caption">歐洲火藥庫：巴爾幹半島</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">開始測驗 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 (Powder Keg) -->
+    <div class="level-step" data-level="2" data-step="2">
+      <div class="quiz-card" id="c2-l2-q1">
+        <div class="quiz-number">問題 1 / 1</div>
+        <div class="quiz-question">第一次世界大戰爆發前，哪個地區因為民族組成複雜與宗教衝突不斷，被稱為「歐洲火藥庫」？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l2-q1-exp')"><span class="option-letter">A</span> 巴爾幹半島</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l2-q1-exp')"><span class="option-letter">B</span> 伊比利半島</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l2-q1-exp')"><span class="option-letter">C</span> 義大利半島</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l2-q1-exp')"><span class="option-letter">D</span> 斯堪地那維亞半島</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l2-q1-exp">✅ 巴爾幹半島因受到列強（特別是俄國與奧匈帝國）的干預，加上內部民族差異極大，因此充滿隨時可能引爆大戰的各種爭端。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">前往分類挑戰 ➜</button>
+    </div>
+
+    <!-- Step 3: Categorization Challenge -->
+    <div class="level-step" data-level="2" data-step="3">
+      <div class="categorize-card" id="c2-l2-categorize">
+        <div class="quiz-number">兩大陣營分類挑戰</div>
+        <div class="sort-instruction">🛡️ 請將上方列出的國家，分別拖拉進入對應的「三國協約」或「三國同盟」陣營中：</div>
+        
+        <div class="drag-options" id="c2-l2-cat-options"></div>
+        
+        <div class="category-zones">
+          <div class="category-box" id="cat-entente">
+            <h4>🤝 三國協約</h4>
+            <div class="category-slots" data-type="entente">
+              <div class="cat-slot" data-filled=""></div>
+              <div class="cat-slot" data-filled=""></div>
+              <div class="cat-slot" data-filled=""></div>
+            </div>
+          </div>
+          <div class="category-box" id="cat-alliance">
+            <h4>⚔️ 三國同盟</h4>
+            <div class="category-slots" data-type="alliance">
+              <div class="cat-slot" data-filled=""></div>
+              <div class="cat-slot" data-filled=""></div>
+              <div class="cat-slot" data-filled=""></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-check-fill" onclick="checkCategorization('c2-l2')">✔️ 確認分類</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-2" onclick="goToLevel(3)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 3: 第一槍與戰火蔓延 ====== -->
+<div class="screen" id="screen-level-3">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 3 / 5</div>
+      <h1 class="level-title">🔥 第一槍與戰火蔓延</h1>
+      <div class="level-era">1914 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-3"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="3" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          1914 年 6 月，奧匈帝國皇儲夫婦在波士尼亞首府<strong>塞拉耶佛</strong>遭到塞爾維亞民族主義者暗殺事件，成為引爆第一次世界大戰的導火線。隨後奧匈帝國向塞爾維亞宣戰，在兩大結盟體系的連鎖反應下，歐洲各國紛紛參戰，<strong>第一次世界大戰全面爆發</strong>。
+        </p>
+        <p class="story-text">
+          大戰爆發後，原屬三國同盟的<strong>義大利</strong>不久後便轉換陣營，加入協約國對抗德奧。
+        </p>
+        <p class="story-text">
+          大戰初期，德國試圖迅速擊敗法國，但在西線被英法聯軍阻擋。雙方為了防禦敵方猛烈的機槍與火炮，開始深挖戰壕，形成了漫長且僵持不下的「<strong>壕溝戰</strong>」。士兵們在泥濘與老鼠充斥的環境下作戰，戰爭形勢轉為殘酷的消耗戰。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-sarajevo.jpg', '1914 塞拉耶佛事件')">
+            <img src="images/ch2/ch2-sarajevo.jpg" alt="塞拉耶佛">
+            <div class="story-image-caption">1914 年塞拉耶佛事件 — 大戰導火線</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/ch2/ch2-trench.jpg', '一戰西線泥濘的壕溝戰')">
+            <img src="images/ch2/ch2-trench.jpg" alt="壕溝戰">
+            <div class="story-image-caption">深陷泥濘與鐵絲網的一戰壕溝</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">開始測驗 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="3" data-step="2">
+      <div class="quiz-card" id="c2-l3-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">導致第一次世界大戰全面爆發的「導火線」事件是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q1-exp')"><span class="option-letter">A</span> 德國無限制潛艇政策</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q1-exp')"><span class="option-letter">B</span> 波士頓茶葉事件</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q1-exp')"><span class="option-letter">C</span> 拿破崙稱帝</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l3-q1-exp')"><span class="option-letter">D</span> 塞拉耶佛事件（奧國皇儲遇刺）</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l3-q1-exp">✅ 1914 年的塞拉耶佛事件是歐洲火藥庫上的那根火柴，直接點燃了牽動整個歐洲軍事同盟系統的世界大戰。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="3" data-step="3">
+      <div class="quiz-card" id="c2-l3-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">大戰初期，有一個國家原本屬於「三國同盟」，但在開戰後不久卻轉而加入「協約國」陣營，這是哪個國家？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l3-q2-exp')"><span class="option-letter">A</span> 義大利</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q2-exp')"><span class="option-letter">B</span> 奧匈帝國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q2-exp')"><span class="option-letter">C</span> 德國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q2-exp')"><span class="option-letter">D</span> 俄國</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l3-q2-exp">✅ 義大利原本與德奧結盟，但開戰後很快因為國家利益等考量反轉倒向了協約國一方參戰。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="3" data-step="4">
+      <div class="quiz-card" id="c2-l3-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">大戰爆發後，西線戰場（如英法聯軍對抗德軍）陷入長期的防守僵持，主要採用了何種作戰型態？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q3-exp')"><span class="option-letter">A</span> 閃電戰</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l3-q3-exp')"><span class="option-letter">B</span> 壕溝戰</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q3-exp')"><span class="option-letter">C</span> 游擊戰</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l3-q3-exp')"><span class="option-letter">D</span> 海上封鎖戰</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l3-q3-exp">✅ 面對威力強大的機槍防禦，雙方軍隊只能挖出綿延數百公里的泥濘戰壕，陷入雙方死傷慘重卻難以推進的壕溝戰。</div>
+      </div>
+      <button class="btn-next-level" id="btn-next-3" onclick="goToLevel(4)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 4: 戰局轉折與結束 ====== -->
+<div class="screen" id="screen-level-4">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 4 / 5</div>
+      <h1 class="level-title">🕊️ 戰局轉折與大戰結束</h1>
+      <div class="level-era">1917 ~ 1918 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-4"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="4" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          到了 1917 年，歐洲各國已經在長期的消耗戰中疲憊不堪，但戰局卻在這年迎來了決定性的轉折。
+        </p>
+        <p class="story-text">
+          首先，德國為了切斷英國的海上物資補給，實施了「<strong>無限制潛艇政策</strong>」，宣告任何接近英國的船隻都會被潛艇擊沉。這導致多艘載著美國平民與物資的船隻被擊沉，極大激怒了美國。<strong>美國因此決定在 1917 年加入協約國參戰</strong>，為協約國注入了強大的生力軍。
+        </p>
+        <p class="story-text">
+          同一年，東線的<strong>俄國</strong>國內發生了共產黨革命，新政府為了穩定內政，決定與德國簽訂條約，<strong>提早退出了第一次世界大戰</strong>。
+        </p>
+        <p class="story-text">
+          儘管俄國退出，但有了美國龐大資源與軍隊的加入，協約國逐漸取得決定性優勢。1918 年底，德國與奧匈帝國等同盟國防禦瓦解、國內爆發革命。<strong>1918 年 11 月 11 日</strong>，德國與協約國簽署停戰協定，歷時四年多的第一次世界大戰終於宣告結束。
+        </p>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">開始測驗 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="4" data-step="2">
+      <div class="quiz-card" id="c2-l4-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">1917 年，導致美國決議加入協約國參戰的最直接原因是什麼？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q1-exp')"><span class="option-letter">A</span> 珍珠港遭到偷襲</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l4-q1-exp')"><span class="option-letter">B</span> 德國實施「無限制潛艇政策」，屢次擊沉美國船隻</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q1-exp')"><span class="option-letter">C</span> 美國想藉機擴張歐洲殖民地</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q1-exp')"><span class="option-letter">D</span> 法國被完全佔領</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l4-q1-exp">✅ 德國的無限制潛艇政策威脅了美國的航海安全與利益，成為激發美國向德國宣戰的關鍵導火線。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="4" data-step="3">
+      <div class="quiz-card" id="c2-l4-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">同年（1917 年），協約國陣營中哪個國家因為國內爆發革命而提早退出戰場？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q2-exp')"><span class="option-letter">A</span> 英國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q2-exp')"><span class="option-letter">B</span> 義大利</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q2-exp')"><span class="option-letter">C</span> 法國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l4-q2-exp')"><span class="option-letter">D</span> 俄國</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l4-q2-exp">✅ 俄國爆發了革命推翻沙皇，新建立的蘇維埃政府隨後與德國議和並退出第一次世界大戰。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="4" data-step="4">
+      <div class="quiz-card" id="c2-l4-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">歷時四年多的第一次世界大戰，最後在哪一年因德國投降而宣告結束？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q3-exp')"><span class="option-letter">A</span> 1914 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q3-exp')"><span class="option-letter">B</span> 1917 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l4-q3-exp')"><span class="option-letter">C</span> 1918 年</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l4-q3-exp')"><span class="option-letter">D</span> 1920 年</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l4-q3-exp">✅ 1918年11月，精疲力盡且面臨革命的德國與協約國簽署了停戰協定，世界大戰終於落幕。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">前往挑戰 ➜</button>
+    </div>
+    
+    <!-- Step 5: Combined Sort -->
+    <div class="level-step" data-level="4" data-step="5">
+      <div class="sort-container" id="c2-l4-sort">
+        <div class="quiz-number">排序挑戰 — 一戰演進</div>
+        <div class="sort-instruction">📋 請將以下第一次世界大戰相關事件，按時間先後順序（由早到晚）排列：</div>
+        <div class="sort-items" id="c2-l4-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('c2-l4')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-4" onclick="goToLevel(5)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 5: 巴黎和會與國際聯盟 ====== -->
+<div class="screen" id="screen-level-5">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 5 / 5</div>
+      <h1 class="level-title">🕊️ 和平的代價：巴黎和會</h1>
+      <div class="level-era">1919 ~ 1920 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-5"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="5" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          大戰結束後，戰勝國於 1919 年召開了「<strong>巴黎和會</strong>」來懲罰戰敗國與重整世界秩序。這場會議幾乎由英、法、美三個戰勝國主導（被稱為三巨頭）。和會最終對德國簽訂了嚴苛的《<strong>凡爾賽條約</strong>》，使德國背負了巨大的賠償與割地，埋下了日後二戰的種子。
+        </p>
+        <p class="story-text">
+          在和會前，美國總統威爾遜提出了著名的「<strong>十四點原則</strong>」作為和平基礎。其中最重要的是提倡「<strong>民族自決</strong>」——讓各民族自己決定自己的命運這促成了戰後東歐許多新興獨立國家的誕生（如波蘭、捷克斯洛伐克等），但同樣的原則卻未被應用在亞洲與非洲的殖民地上。
+        </p>
+        <p class="story-text">
+          十四點原則的另一項重要成就是在 1920 年推動成立了第一個國際性維持和平的組織——「<strong>國際聯盟</strong>」。然而諷刺的是，這個由美國總統全力推倡的組織，卻因為戰後美國國內興起不願再干涉歐洲事務的「<strong>孤立主義</strong>」，加上美國國會的反對，導致美國最終從未加入國際聯盟，嚴重削弱了國聯維護和平的力量。
+        </p>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">開始測驗 ➜</button>
+    </div>
+
+    <!-- Step 2: Quiz 1 -->
+    <div class="level-step" data-level="5" data-step="2">
+      <div class="quiz-card" id="c2-l5-q1">
+        <div class="quiz-number">問題 1 / 3</div>
+        <div class="quiz-question">1919 年召開的巴黎和會，用以懲罰戰敗國與重整歐洲秩序，該會議主要由哪三個戰勝國主導？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q1-exp')"><span class="option-letter">A</span> 德、奧、義</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q1-exp')"><span class="option-letter">B</span> 英、美、中</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l5-q1-exp')"><span class="option-letter">C</span> 美、英、法</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q1-exp')"><span class="option-letter">D</span> 俄、法、美</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l5-q1-exp">✅ 巴黎和會主要由強大的戰勝國主導，俗稱三巨頭的英、法、美三國掌控了會議的重大決定方向。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 3: Quiz 2 -->
+    <div class="level-step" data-level="5" data-step="3">
+      <div class="quiz-card" id="c2-l5-q2">
+        <div class="quiz-number">問題 2 / 3</div>
+        <div class="quiz-question">美國總統威爾遜在戰後提出了「十四點原則」，其中包含哪一個重要主張，促成東歐許多新獨立國家誕生？</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l5-q2-exp')"><span class="option-letter">A</span> 民族自決</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q2-exp')"><span class="option-letter">B</span> 社會達爾文主義</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q2-exp')"><span class="option-letter">C</span> 無代表不納稅</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q2-exp')"><span class="option-letter">D</span> 重商主義</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l5-q2-exp">✅ 威爾遜提倡讓各民族能決定自己的政府形式，導致奧匈帝國等戰敗國解體，東歐誕生許多新國家。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">下一題 ➜</button>
+    </div>
+
+    <!-- Step 4: Quiz 3 -->
+    <div class="level-step" data-level="5" data-step="4">
+      <div class="quiz-card" id="c2-l5-q3">
+        <div class="quiz-number">問題 3 / 3</div>
+        <div class="quiz-question">戰後各國依據威爾遜的建議成立了哪一個國際組織，以維護世界和平？（儘管美國並未加入）</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q3-exp')"><span class="option-letter">A</span> 聯合國</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q3-exp')"><span class="option-letter">B</span> 北大西洋公約組織</button>
+          <button class="quiz-option" onclick="checkAnswer(this, true, 'c2-l5-q3-exp')"><span class="option-letter">C</span> 國際聯盟</button>
+          <button class="quiz-option" onclick="checkAnswer(this, false, 'c2-l5-q3-exp')"><span class="option-letter">D</span> 世界貿易組織</button>
+        </div>
+        <div class="quiz-explanation" id="c2-l5-q3-exp">✅ 國際聯盟是第一個旨在維護世界和平的全球性國際組織，但因缺乏軍隊與美國缺席而無力阻止後來的二戰。</div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(5)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 5: Match Challenge -->
+    <div class="level-step" data-level="5" data-step="5">
+      <div class="match-container" id="c2-l5-match">
+        <div class="quiz-number">名詞配對挑戰</div>
+        <div class="sort-instruction">🔗 請將一戰後的相關條約/名詞與其含義作配對（先點左邊，再點右邊）：</div>
+        <div class="match-grid">
+          <div class="match-left" id="c2-l5-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c2-l5')">凡爾賽條約</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c2-l5')">民族自決</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c2-l5')">國際聯盟</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="c2-l5-match-right">
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c2-l5')">維護世界和平的組織</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c2-l5')">對德嚴苛懲罰的戰後合約</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c2-l5')">促成東歐新興國家誕生</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-next-level" id="btn-next-5" onclick="showFinalScreen()">🏆 查看成績 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== FINAL SCREEN ====== -->
+<div class="screen" id="screen-final">
+  <div class="final-screen">
+    <div class="trophy-icon">🏆</div>
+    <div class="final-congrats">
+      <p class="final-congrats-line">🎊 恭喜 <span class="final-username" id="final-username">時間旅行者</span> 通過測驗！</p>
+    </div>
+    <h1 class="final-title">獲得「一戰風雲」歷史大師</h1>
+    <p class="welcome-subtitle" id="final-message">你已成功穿越了一戰時期的風雲變幻，成為真正的歷史大師！</p>
+    <div class="final-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="final-score">0</div>
+        <div class="stat-label">總得分</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-correct">0</div>
+        <div class="stat-label">答對題數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-stars">0</div>
+        <div class="stat-label">獲得星星 ⭐</div>
+      </div>
+    </div>
+    <button class="btn-restart" onclick="restartGame()">🔄 再玩一次</button>
+    <button class="btn-back-portal" onclick="goToPortal()">🏠 回到入口</button>
+  </div>
+</div>
+
+<!-- ====== LEVEL COMPLETE OVERLAY ====== -->
+<div class="level-complete-overlay" id="level-complete-overlay">
+  <div class="level-complete-content">
+    <div class="level-complete-icon" id="complete-icon">🎉</div>
+    <h2 class="level-complete-title" id="complete-title">關卡完成！</h2>
+    <div class="level-complete-score" id="complete-score">+100 分</div>
+    <div class="stars-earned" id="stars-earned"></div>
+    <button class="btn-continue" id="btn-complete-continue">繼續冒險 ➜</button>
+  </div>
+</div>
+
+<!-- ====== LIGHTBOX ====== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

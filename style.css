@@ -1408,3 +1408,216 @@ body {
   20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
   100% { transform: translateY(-80px) scale(1); opacity: 0; }
 }
+
+/* ===== MAP DRAG-DROP GAME ===== */
+.map-challenge-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: var(--space-xl) auto;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.map-container img {
+  width: 100%;
+  display: block;
+}
+
+.map-drop-zone {
+  position: absolute;
+  width: 90px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.map-drop-zone:hover, .map-drop-zone.drop-hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.map-drop-zone.filled {
+  border: none;
+  background: transparent;
+  color: #d32f2f; /* 暗紅色更顯眼 */
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.map-drop-zone.correct-drop {
+  border: none;
+  background: transparent;
+  color: #2e7d32; /* 暗綠色代表正確 */
+}
+
+.map-drop-zone.wrong-drop {
+  border: none;
+  background: transparent;
+  color: #c62828;
+  animation: wrongShake 0.4s ease;
+}
+
+/* Hardcoded map spots for c2-l1 based on typical Asia map */
+#map-drop-india { top: 37.5%; left: 24.5%; }
+#map-drop-vietnam { top: 46.5%; left: 54.5%; }
+#map-drop-indonesia { top: 74%; left: 53.5%; }
+#map-drop-philippines { top: 46.5%; left: 69%; }
+
+
+/* ===== CATEGORIZE DRAG-DROP GAME ===== */
+.categorize-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.category-zones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.category-zone {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.category-zone h4 {
+  font-size: 1.2rem;
+  color: var(--gold-200);
+  text-align: center;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 192, 64, 0.2);
+}
+
+.category-slots {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.cat-slot {
+  height: 48px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--smoke);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cat-slot:hover, .cat-slot.drop-hover {
+  background: rgba(255, 192, 64, 0.1);
+  border-color: var(--gold-400);
+}
+
+.cat-slot.filled {
+  border-style: solid;
+  border-color: var(--gold-400);
+  background: rgba(255, 192, 64, 0.1);
+  color: var(--gold-100);
+}
+
+.cat-slot.correct-drop {
+  border-color: var(--emerald);
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--emerald);
+}
+
+.cat-slot.wrong-drop {
+  border-color: var(--crimson);
+  background: rgba(230, 57, 70, 0.1);
+  color: var(--crimson);
+  animation: wrongShake 0.4s ease;
+}
+
+/* ===== DRAG OPTIONS (Shared) ===== */
+.drag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-subtle);
+}
+
+.drag-chip {
+  padding: var(--space-sm) var(--space-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-pill);
+  color: var(--gold-200);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: grab;
+  user-select: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.drag-chip:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 192, 64, 0.1);
+  box-shadow: 0 6px 16px rgba(255, 192, 64, 0.15);
+}
+
+.drag-chip.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.drag-chip.chip-used {
+  opacity: 0.3;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
+.drag-chip.chip-selected {
+  border-color: var(--emerald);
+  background: rgba(6, 214, 160, 0.15);
+  color: var(--emerald);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(6, 214, 160, 0.2);
+}
+
+@media (max-width: 768px) {
+  .category-zones { grid-template-columns: 1fr; }
+  .map-drop-zone { width: 44px; height: 44px; font-size: 0.75rem; }
+  .map-drop-zone.filled { font-size: 0.9rem; }
+}
