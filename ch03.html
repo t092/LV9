@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="互動式 AI 歷史教學遊戲 — 戰間期與第二次世界大戰">
+  <title>⏳ 時間旅行者 — 戰間期與第二次世界大戰</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem; }
+    .comparison-table th, .comparison-table td { border: 1px solid var(--text-muted); padding: 8px; text-align: center; }
+    .comparison-table th { background-color: rgba(255, 255, 255, 0.1); color: var(--gold-300); }
+    .multiselect-options { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; text-align: left; }
+    .ms-option { display: flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.4); padding: 12px; border-radius: var(--radius-md); border: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
+    .ms-option:hover { background: rgba(255,255,255,0.1); }
+    .ms-option input[type="checkbox"] { width: 1.2rem; height: 1.2rem; cursor: pointer; accent-color: var(--gold-400); }
+    .ms-option.selected-correct { border-color: var(--emerald); background: rgba(16, 185, 129, 0.2); }
+    .ms-option.selected-wrong { border-color: var(--crimson); background: rgba(239, 68, 68, 0.2); }
+    .btn-check-ms { background: var(--bg-card); color: var(--text-light); border: 2px solid var(--gold-600); padding: 0.8rem 1.5rem; border-radius: 999px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .btn-check-ms:hover { background: var(--gold-600); color: var(--bg-dark); }
+  </style>
+</head>
+<body data-chapter="3">
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <span class="icon">⏳</span> 時間旅行者
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="score-display">
+    <span class="star-icon">⭐</span>
+    <span id="total-score">0</span> 分
+  </div>
+</nav>
+
+<!-- ====== LEVEL 1: 俄國革命與共產政權 ====== -->
+<div class="screen active" id="screen-level-1">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 1 / 4</div>
+      <h1 class="level-title">☭ 俄國革命與共產政權</h1>
+      <div class="level-era">1917 ~ 1928 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-1"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="1" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          第一次世界大戰期間，俄國屢戰屢敗，國內經濟崩潰，人民生活困苦。1917年3月爆發了「<strong>二月革命</strong>」，推翻了沙皇統治，建立臨時政府。然而臨時政府未退出一戰，引發不滿。同年11月，在<strong>列寧</strong>領導下發動「<strong>十月革命</strong>」，成功推翻臨時政府，建立了世界上第一個共產政權。
+        </p>
+        <p class="story-text">
+          革命後，為了鞏固政權與平息內戰，共產黨實行多項變革。1922年，將原本俄羅斯帝國疆域內的各個蘇維埃共和國合併，正式成立了「<strong>蘇維埃社會主義共和國聯盟</strong>」（簡稱<strong>蘇聯</strong>）。
+        </p>
+        <p class="story-text">
+          到了 1928 年，史達林掌權後開始推行「<strong>計畫經濟</strong>」。在這種體制下，由國家嚴格控制所有的產能與資源分配，強制推動重工業發展與農業集體化，使蘇聯在短時間內躍升為工業強國。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/russian_revolution.jpg', '俄國革命群眾 (1917年)')">
+            <img src="images/russian_revolution.jpg" alt="俄國革命">
+            <div class="story-image-caption">1917年 — 俄國革命群眾上街抗議</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/lenin_speech.jpg', '列寧發表演說')">
+            <img src="images/lenin_speech.jpg" alt="列寧演說">
+            <div class="story-image-caption">列寧 — 領導十月革命建立共產政權</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/ussr_industry.jpg', '蘇聯推行計畫經濟，大力發展重工業')">
+            <img src="images/ussr_industry.jpg" alt="蘇聯計畫經濟">
+            <div class="story-image-caption">計畫經濟 — 國家控制資源發展重工業</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Sort Challenge -->
+    <div class="level-step" data-level="1" data-step="2">
+      <div class="sort-container" id="c3-l1-sort">
+        <div class="quiz-number">排序挑戰</div>
+        <div class="sort-instruction">📋 請將以下「俄國革命與建制」的重大事件，按時間先後順序排列（由早到晚）：</div>
+        <div class="sort-items" id="c3-l1-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('c3-l1')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(1)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 3: Match Challenge -->
+    <div class="level-step" data-level="1" data-step="3">
+      <div class="match-container" id="c3-l1-match">
+        <div class="quiz-number">觀念配對挑戰</div>
+        <div class="sort-instruction">🔗 請將左側的名詞與右側正確的敘述配對（先選左邊，再點右邊連線）：</div>
+        <div class="match-grid">
+          <div class="match-left" id="c3-l1-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l1')">十月革命</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l1')">計畫經濟體制</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l1')">蘇維埃社會主義共和國聯盟</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="c3-l1-match-right">
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l1')">由國家嚴格控制產能與資源分配，促進工業發展</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l1')">列寧領導，推翻臨時政府並建立共產政權</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l1')">1922年正式成立的共產主義國家，縮寫為「蘇聯」</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-next-level" id="btn-next-1" onclick="goToLevel(2)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 2: 戰間期的經濟波動與極權崛起 ====== -->
+<div class="screen" id="screen-level-2">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 2 / 4</div>
+      <h1 class="level-title">📉 戰間期經濟波動與極權崛起</h1>
+      <div class="level-era">1918 ~ 1930s</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-2"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="2" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          第一次世界大戰後，美國憑藉雄厚實力迎來了「咆哮的20年代」的繁榮巔峰。然而因為工業與農業生產過剩，加上股市投機炒作，最終在 1929 年引爆美國紐約股市大崩盤，隨後蔓延全球，掀起了空前嚴重的「<strong>經濟大恐慌 (The Great Depression)</strong>」。美國總統<strong>羅斯福</strong>隨後推行「<strong>新政 (New Deal)</strong>」，以國家力量大規模興建公共工程，才逐漸挽救了失業與經濟危機。
+        </p>
+        <p class="story-text">
+          在歐洲，戰後的動盪也催生了「<strong>極權政治</strong>」的崛起：<br>
+          🇮🇹 <strong>義大利</strong>：因受到「<strong>一戰後的經濟衰退</strong>」與社會動盪影響，法西斯黨領袖<strong>墨索里尼</strong>早在 1922 年就奪取政權，這比經濟大恐慌還早。<br>
+          🇩🇪 <strong>德國</strong>：一戰後背負鉅額賠款而發生惡性通貨膨脹，原已困苦的社會在 1929 年「<strong>經濟大恐慌</strong>」雙重打擊下更是雪上加霜。納粹黨領袖<strong>希特勒</strong>藉著民眾對高失業率的絕望，與撕毀凡爾賽條約的口號，合法贏得選舉並獨攬大權。
+        </p>
+        <p class="story-text">極權國家往往限制言論自由，透過洗腦與秘密警察實行高壓統治，對內迫害異己（如德國迫害猶太人），對外積極擴張兵力，種下了二戰的禍根。</p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/wall_street_crash.jpg', '1929年華爾街股市崩盤')">
+            <img src="images/wall_street_crash.jpg" alt="股市崩盤">
+            <div class="story-image-caption">1929 年 — 紐約股市大崩盤引發全球大恐慌</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/mussolini.jpg', '墨索里尼與法西斯黨')">
+            <img src="images/mussolini.jpg" alt="墨索里尼">
+            <div class="story-image-caption">墨索里尼 — 義大利法西斯獨裁者</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/hitler.jpg', '希特勒與納粹黨')">
+            <img src="images/hitler.jpg" alt="希特勒">
+            <div class="story-image-caption">希特勒 — 藉大恐慌危機掌控德國</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Sort Challenge (Cause and Effect) -->
+    <div class="level-step" data-level="2" data-step="2">
+      <div class="sort-container" id="c3-l2-sort">
+        <div class="quiz-number">因果推演挑戰</div>
+        <div class="sort-instruction">📋 請仔細思索，將以下引爆「經濟大恐慌」的連串因果過程，由第一步到最後一步排列出來：</div>
+        <div class="sort-items" id="c3-l2-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('c3-l2')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(2)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 3: Match Challenge -->
+    <div class="level-step" data-level="2" data-step="3">
+      <div class="match-container" id="c3-l2-match">
+        <div class="quiz-number">觀念配對挑戰</div>
+        <div class="sort-instruction">🔗 請將各國領袖與他們崛起的背景或政策正確配對：</div>
+        <div class="match-grid">
+          <div class="match-left" id="c3-l2-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l2')">義大利 墨索里尼</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l2')">德國 希特勒</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l2')">美國 羅斯福</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="c3-l2-match-right">
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l2')">藉由「經濟大恐慌」造成的嚴重失業與絕望獲得廣大支持</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l2')">面對大恐慌，推行擴大公共建設的「新政」干預經濟</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l2')">受「一戰後」經濟衰退與社會動盪影響而崛起</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-next-level" id="btn-next-2" onclick="goToLevel(3)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 3: 第二次世界大戰的爆發與進程 ====== -->
+<div class="screen" id="screen-level-3">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 3 / 4</div>
+      <h1 class="level-title">⚔️ 第二次世界大戰的爆發與進程</h1>
+      <div class="level-era">1937 ~ 1945 年</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-3"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="3" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          二戰前夕，法西斯主義國家開始四處伸出魔爪。為了避免戰爭再度發生，英法兩國一開始對德國的擴張採取退讓妥協的態度，稱為「<strong>姑息政策</strong>」，這反而間接地助長了其侵略野心。例如 1938 年的慕尼黑會議，英法就同意德國合併捷克斯洛伐克的蘇臺德區。
+        </p>
+        <p class="story-text">
+          二戰在亞洲的揭幕是 1937 年爆發的<strong>盧溝橋事變</strong>，中日戰爭全面開打。在歐洲，德國與蘇聯簽訂《<strong>德蘇互不侵犯條約</strong>》後，於 <strong>1939 年入侵波蘭</strong>。英法國終於不再退讓並對德宣戰，<strong>第二次世界大戰正式爆發</strong>。
+        </p>
+        <p class="story-text">
+          大戰初期，德國以閃電戰迅速擊潰許多西歐國家，甚至攻陷法國。1941年底，日本為拓展太平洋勢力，大舉偷襲美國海軍基地，爆發了「<strong>珍珠港事件</strong>」，美國憤而宣布參戰，戰火延燒至全世界範圍。隨著戰事拉鋸，同盟國於 1944 年發動著名的「<strong>諾曼第登陸</strong>」，成功開闢歐洲西線戰場並展開反攻。最終在 1945 年，德、義、日三個「軸心國」先後宣布無條件投降，這場人類歷史上最慘烈的戰爭才告一段落。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/invasion_poland.jpg', '德國裝甲部隊入侵波蘭 (1939年)')">
+            <img src="images/invasion_poland.jpg" alt="入侵波蘭">
+            <div class="story-image-caption">1939 年 9 月 — 德國入侵波蘭引發二戰</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/pearl_harbor.jpg', '珍珠港事件 (1941年)')">
+            <img src="images/pearl_harbor.jpg" alt="珍珠港事件">
+            <div class="story-image-caption">1941 年 12 月 — 珍珠港事件</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/normandy.jpg', '諾曼第登陸 (1944年)')">
+            <img src="images/normandy.jpg" alt="諾曼第登陸">
+            <div class="story-image-caption">1944 年 6 月 — 盟軍諾曼第登陸展開反攻</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Sort Challenge 10 events -->
+    <div class="level-step" data-level="3" data-step="2">
+      <div class="sort-container" id="c3-l3-sort">
+        <div class="quiz-number">歷史時間軸大挑戰</div>
+        <div class="sort-instruction">📋 這是二戰時期極為關鍵的 10 個大事件，請按時間先後順序將它們排列出來：</div>
+        <div class="sort-items" id="c3-l3-sort-items"></div>
+        <button class="btn-check-sort" onclick="checkSort('c3-l3')">✔️ 確認順序</button>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(3)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 3: Match Challenge -->
+    <div class="level-step" data-level="3" data-step="3">
+      <div class="match-container" id="c3-l3-match">
+        <div class="quiz-number">歷史意義配對挑戰</div>
+        <div class="sort-instruction">🔗 將二戰關鍵字與其歷史意義正確連線：</div>
+        <div class="match-grid">
+          <div class="match-left" id="c3-l3-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l3')">姑息政策</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l3')">入侵波蘭</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l3')">珍珠港事件</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="c3-l3-match-right">
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l3')">英法不再退讓並對德宣戰，第二次世界大戰正式爆發</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l3')">面對侵略者擴張採取退讓妥協，間接助長侵略野心</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l3')">美國正式宣布參戰，戰火延燒至全世界範圍</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-next-level" id="btn-next-3" onclick="goToLevel(4)">前往下一關 ➜</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LEVEL 4: 戰後全球新秩序與兩次大戰比較 ====== -->
+<div class="screen" id="screen-level-4">
+  <div class="level-screen">
+    <div class="level-header">
+      <div class="level-tag">關卡 4 / 4</div>
+      <h1 class="level-title">🕊️ 戰役的終局與全球新秩序</h1>
+      <div class="level-era">1945 年 ~</div>
+    </div>
+
+    <div class="step-indicator" id="step-indicator-4"></div>
+
+    <!-- Step 1: Story -->
+    <div class="level-step active" data-level="4" data-step="1">
+      <div class="story-section">
+        <h3>📖 歷史故事</h3>
+        <p class="story-text">
+          二戰末期，為了討論戰後的和平秩序與世界政治版圖，同盟國陣營召開了幾次非常重要的戰時會議。其中，1945 年由美、英、蘇三國最高領袖（被稱為「三巨頭」：羅斯福、邱吉爾、史達林）參加的「<strong>雅爾達會議 (Yalta Conference)</strong>」影響尤為深遠。
+        </p>
+        <p class="story-text">
+          <strong>雅爾達會議</strong>中除了決議戰後德國由同盟國分區佔領、要求蘇聯在對德戰爭結束後加入對日作戰外，也實質上劃分了美蘇二國在歐洲與東亞的戰後勢力範圍，這也成為奠定日後「冷戰 (Cold War)」對峙局面的基礎。
+        </p>
+        <p class="story-text">
+          此外，鑑於第一次世界大戰後的「國際聯盟」無力阻止二戰發生，各國決心組建一個更強而有力的國際組織來維持世界和平與合作。1945 年 10 月，「<strong>聯合國 (United Nations)</strong>」正式成立。其核心的「安全理事會」賦予美、英、蘇、法、中五個常任理事國對重大議案的「否決權」，使其具有比過去更穩定的強制約束力。
+        </p>
+        <div class="story-images">
+          <div class="story-image-card" onclick="openLightbox('images/yalta_conference.jpg', '雅爾達會議：邱吉爾、羅斯福與史達林')">
+            <img src="images/yalta_conference.jpg" alt="雅爾達會議三巨頭">
+            <div class="story-image-caption">1945年 — 雅爾達會議三巨頭</div>
+          </div>
+          <div class="story-image-card" onclick="openLightbox('images/un_logo.jpg', '聯合國標誌')">
+            <img src="images/un_logo.jpg" alt="聯合國">
+            <div class="story-image-caption">聯合國標誌 — 象徵世界和平與合作</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">開始挑戰 ➜</button>
+    </div>
+
+    <!-- Step 2: Multi-select Quiz -->
+    <div class="level-step" data-level="4" data-step="2">
+      <div class="multiselect-card" id="c3-l4-multi1">
+        <div class="quiz-number">複選題挑戰 — 雅爾達會議</div>
+        <div class="quiz-question">請仔細閱讀，並勾選出雅爾達會議中達成的「所有」實質影響與決議？(全對才算過關)</div>
+        <div class="multiselect-options" id="c3-l4-multi1-opts">
+          <!-- 生成腳本處理 -->
+          <label class="ms-option"><input type="checkbox" value="correct1"> <span>決議戰後德國由同盟國分區佔領</span></label>
+          <label class="ms-option"><input type="checkbox" value="correct2"> <span>蘇聯承諾對日宣戰</span></label>
+          <label class="ms-option"><input type="checkbox" value="correct3"> <span>實質劃分了戰後勢力範圍，奠定日後冷戰基礎</span></label>
+          <label class="ms-option"><input type="checkbox" value="correct4"> <span>同意建立聯合國以維持戰後和平</span></label>
+          <label class="ms-option"><input type="checkbox" value="wrong1"> <span>決議對德國採取姑息政策，同意其合法併吞捷克</span></label>
+          <label class="ms-option"><input type="checkbox" value="wrong2"> <span>決議成立國際聯盟，並要求德國承擔所有一戰賠款</span></label>
+        </div>
+        <button class="btn-check-ms" onclick="checkMultiSelect('c3-l4-multi1', ['correct1','correct2','correct3','correct4'])">✔️ 確認答案</button>
+        <div class="quiz-explanation" id="c3-l4-multi1-exp" style="display:none; margin-top:15px;">✅ 答對了！雅爾達會議奠定了冷戰基礎、確立聯合國架構，並讓蘇聯承諾加碼對日作戰，也因此產生許多難以彌補的政治代價。</div>
+      </div>
+      <button class="btn-step-next" id="btn-next-ms-4-2" style="display:none;" onclick="nextStep(4)">前往配對挑戰 ➜</button>
+    </div>
+
+    <!-- Step 3: Match Challenge -->
+    <div class="level-step" data-level="4" data-step="3">
+      <div class="match-container" id="c3-l4-match">
+        <div class="quiz-number">觀念配對挑戰</div>
+        <div class="sort-instruction">🔗 將戰後的新秩序名詞正確配對連線：</div>
+        <div class="match-grid">
+          <div class="match-left" id="c3-l4-match-left">
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l4')">美、英、蘇三國領袖</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l4')">聯合國</div>
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l4')">安全理事會常任理事國</div>
+          </div>
+          <div class="match-connector">
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+            <div style="height:48px;"></div>
+          </div>
+          <div class="match-right" id="c3-l4-match-right">
+            <div class="match-item" data-match="c" onclick="selectMatch(this, 'c3-l4')">在重大的國際安全決議案上擁有「否決權」</div>
+            <div class="match-item" data-match="a" onclick="selectMatch(this, 'c3-l4')">主導雅爾達會議，被稱為「三巨頭」</div>
+            <div class="match-item" data-match="b" onclick="selectMatch(this, 'c3-l4')">二戰後成立，取代國際聯盟負責維持國際和平的組織</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-step-next" onclick="nextStep(4)">前往比較大挑戰 ➜</button>
+    </div>
+
+    <!-- Step 4: Drag-Fill Challenge Matrix -->
+    <div class="level-step" data-level="4" data-step="4">
+      <div class="fill-blank-card" id="c3-l4-fill">
+        <div class="quiz-number">終極考驗 — 兩次世界大戰比較表</div>
+        <div class="sort-instruction">📋 將上方的標籤拖拉（或點選後再點選）到下方表格正確的空格中：</div>
+        <div class="drag-options" id="c3-l4-drag-options" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+        
+        <table class="comparison-table">
+          <tr>
+            <th>比較項目</th>
+            <th>第一次世界大戰</th>
+            <th>第二次世界大戰</th>
+          </tr>
+          <tr>
+            <td>爆發時間</td>
+            <td><span class="drop-zone" id="c3-l4-drop-1" data-answer="1914年">？</span></td>
+            <td><span class="drop-zone" id="c3-l4-drop-6" data-answer="1939年">？</span></td>
+          </tr>
+          <tr>
+            <td>導火線</td>
+            <td><span class="drop-zone" id="c3-l4-drop-2" data-answer="塞拉耶佛事件">？</span></td>
+            <td><span class="drop-zone" id="c3-l4-drop-7" data-answer="德國入侵波蘭">？</span></td>
+          </tr>
+          <tr>
+            <td>對立雙方</td>
+            <td><span class="drop-zone" id="c3-l4-drop-3" data-answer="同盟國 vs 協約國">？</span></td>
+            <td><span class="drop-zone" id="c3-l4-drop-8" data-answer="軸心國 vs 同盟國">？</span></td>
+          </tr>
+          <tr>
+            <td>結束時間</td>
+            <td><span class="drop-zone" id="c3-l4-drop-4" data-answer="1918年">？</span></td>
+            <td><span class="drop-zone" id="c3-l4-drop-9" data-answer="1945年">？</span></td>
+          </tr>
+          <tr>
+            <td>戰後和平組織</td>
+            <td><span class="drop-zone" id="c3-l4-drop-5" data-answer="國際聯盟">？</span></td>
+            <td><span class="drop-zone" id="c3-l4-drop-10" data-answer="聯合國">？</span></td>
+          </tr>
+        </table>
+        
+        <button class="btn-check-fill" onclick="checkDragFill('c3-l4')">✔️ 確認答案</button>
+      </div>
+      <button class="btn-next-level" id="btn-next-4" onclick="showFinalScreen()">🏆 查看成績 ➜</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ====== FINAL SCREEN ====== -->
+<div class="screen" id="screen-final">
+  <div class="final-screen">
+    <div class="trophy-icon">🏆</div>
+    <div class="final-congrats">
+      <p class="final-congrats-line">🎊 恭喜 <span class="final-username" id="final-username">時間旅行者</span> 通過測驗！</p>
+    </div>
+    <h1 class="final-title">獲得「戰火餘生」歷史大師稱號</h1>
+    <p class="welcome-subtitle" id="final-message">你已成功探究世界大戰的始末，見證了國際新秩序的誕生！</p>
+    <div class="final-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="final-score">0</div>
+        <div class="stat-label">總得分</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-correct">0</div>
+        <div class="stat-label">答對次數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="final-stars">0</div>
+        <div class="stat-label">獲得星星 ⭐</div>
+      </div>
+    </div>
+    <button class="btn-restart" onclick="restartGame()">🔄 再玩一次</button>
+    <button class="btn-back-portal" onclick="goToPortal()">🏠 回到入口</button>
+  </div>
+</div>
+
+<!-- ====== LEVEL COMPLETE OVERLAY ====== -->
+<div class="level-complete-overlay" id="level-complete-overlay">
+  <div class="level-complete-content">
+    <div class="level-complete-icon" id="complete-icon">🎉</div>
+    <h2 class="level-complete-title" id="complete-title">關卡完成！</h2>
+    <div class="level-complete-score" id="complete-score">+100 分</div>
+    <div class="stars-earned" id="stars-earned"></div>
+    <button class="btn-continue" id="btn-complete-continue">繼續冒險 ➜</button>
+  </div>
+</div>
+
+<!-- ====== LIGHTBOX ====== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
