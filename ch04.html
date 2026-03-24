@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="互動式 AI 歷史教學遊戲 — 從兩極到多元的戰後世界">
+<title>⏳ 時間旅行者 — 從兩極到多元的戰後世界</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-chapter="4">
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+<div class="navbar-brand">
+<span class="icon">⏳</span> 時間旅行者
+</div>
+<div class="progress-bar-container">
+<div class="progress-bar-fill" id="progress-fill"></div>
+</div>
+<div class="score-display">
+<span class="star-icon">⭐</span>
+<span id="total-score">0</span> 分
+</div>
+</nav>
+
+<!-- ====== LEVEL 1: 冷戰時代的來臨與兩極對峙 ====== -->
+<div class="screen active" id="screen-level-1">
+<div class="level-screen">
+<div class="level-header">
+<div class="level-tag">關卡 1 / 5</div>
+<h1 class="level-title">🥶 冷戰時代的來臨與兩極對峙</h1>
+<div class="level-era">1945 ~ 1991 年</div>
+</div>
+
+<div class="step-indicator" id="step-indicator-1"></div>
+
+<!-- Step 1: Story -->
+<div class="level-step active" data-level="1" data-step="1">
+<div class="story-section">
+<h3>📖 歷史故事</h3>
+<p class="story-text">
+第二次世界大戰結束後，世界並未迎來真正的和平，反而分裂為兩大陣營。以<strong>美國</strong>為首的「<strong>反共陣營</strong>」（又稱民主陣營）與以<strong>蘇聯</strong>為首的「<strong>共產陣營</strong>」展開了長達數十年的對峙。雙方雖未直接開戰，但在政治、經濟、軍事各方面進行激烈競爭，這段時期被稱為「<strong>冷戰 (Cold War)</strong>」。
+</p>
+<p class="story-text">
+為了對抗對方，美國於 1949 年主導成立「<strong>北大西洋公約組織</strong>」（NATO），成員國承諾集體防衛；蘇聯則於 1955 年成立「<strong>華沙公約組織</strong>」，整合東歐共產國家的軍事力量。雙方展開「非戰非和」的軍備競賽，包括核武器與太空科技的競爭，使世界時刻籠罩在核戰威脅之下。
+</p>
+<div class="story-images">
+<div class="story-image-card" onclick="openLightbox('images/ch04-cold-war.jpg', '冷戰時期美蘇兩極對峙示意圖')">
+<img src="images/ch04-cold-war.jpg" alt="冷戰兩極對峙">
+<div class="story-image-caption">冷戰時期 — 美蘇兩極對峙的世界格局</div>
+</div>
+<div class="story-image-card" onclick="openLightbox('images/ch04-nato_warsaw.jpg', '北約與華沙公約組織標誌')">
+<img src="images/ch04-nato_warsaw.jpg" alt="北約與華沙公約">
+<div class="story-image-caption">北約 VS 華沙公約 — 兩大軍事聯盟的對抗</div>
+</div>
+</div>
+</div>
+<button class="btn-step-next" onclick="nextStep(1)">開始挑戰 ➜</button>
+</div>
+
+<!-- Step 2: Categorize Challenge -->
+<div class="level-step" data-level="1" data-step="2">
+<div class="categorize-card" id="c4-l1-categorize">
+<div class="quiz-number">知識分類挑戰</div>
+<div class="sort-instruction">📋 請將下方的項目拖曳到正確的陣營分類中：</div>
+<div class="drag-options" id="c4-l1-cat-options"></div>
+<div class="category-zones">
+<div class="category-zone" data-type="usa">
+<h4>🇺🇸 美國（反共/民主陣營）</h4>
+<div class="category-slots" data-type="usa">
+<div class="cat-slot" data-answer="北大西洋公約組織"></div>
+<div class="cat-slot" data-answer="防堵共產勢力擴張"></div>
+</div>
+</div>
+<div class="category-zone" data-type="ussr">
+<h4>☭ 蘇聯（共產陣營）</h4>
+<div class="category-slots" data-type="ussr">
+<div class="cat-slot" data-answer="華沙公約組織"></div>
+<div class="cat-slot" data-answer="擴張共產政權"></div>
+</div>
+</div>
+</div>
+<button class="btn-check-fill" onclick="checkCategorizationLevel1()">✔️ 確認分類</button>
+</div>
+<button class="btn-next-level" id="btn-next-1" onclick="goToLevel(2)">前往下一關 ➜</button>
+</div>
+</div>
+</div>
+
+<!-- ====== LEVEL 2: 冷戰時期的區域熱戰與危機 ====== -->
+<div class="screen" id="screen-level-2">
+<div class="level-screen">
+<div class="level-header">
+<div class="level-tag">關卡 2 / 5</div>
+<h1 class="level-title">🔥 冷戰時期的區域熱戰與危機</h1>
+<div class="level-era">1948 ~ 1991 年</div>
+</div>
+
+<div class="step-indicator" id="step-indicator-2"></div>
+
+<!-- Step 1: Story -->
+<div class="level-step" data-level="2" data-step="1">
+<div class="story-section">
+<h3>📖 歷史故事</h3>
+<p class="story-text">
+雖然美蘇之間沒有直接開戰，但冷戰的角力卻蔓延至世界各地，在各地引發衝突與危機：
+</p>
+<p class="story-text">
+🌍 <strong>歐洲</strong>：1948 年發生「柏林危機」，蘇聯封鎖西柏林，美國以空運補給突破封鎖。1961 年，東德政府築起「<strong>柏林圍牆</strong>」，將柏林分裂為東西兩部分，成為冷戰分裂的象徵。
+</p>
+<p class="story-text">
+🌎 <strong>美洲</strong>：1962 年的「<strong>古巴飛彈危機</strong>」是最接近核戰的時刻。蘇聯在古巴部署飛彈，美國海上封鎖，雙方劍拔弩張，最終蘇聯撤除飛彈才化解危機。
+</p>
+<p class="story-text">
+🌏 <strong>亞洲</strong>：1950 年爆發「<strong>韓戰</strong>」，南北韓在美蘇支持下交戰；1955 年起「<strong>越戰</strong>」持續近二十年，美國介入阻止共產勢力擴張，最終南越淪陷。
+</p>
+<p class="story-text">
+🕌 <strong>中東</strong>：1948 年以色列建國後，與阿拉伯國家爆發多次「<strong>以阿衝突</strong>」，持續至今。
+</p>
+<div class="story-images">
+<div class="story-image-card" onclick="openLightbox('images/ch04-regional-crisis.jpg', '冷戰時期區域危機地圖')">
+<img src="images/ch04-regional-crisis.jpg" alt="冷戰區域危機">
+<div class="story-image-caption">冷戰時期 — 全球區域衝突與危機分佈</div>
+</div>
+<div class="story-image-card" onclick="openLightbox('images/ch04-berlin_wall.jpg', '柏林圍牆')">
+<img src="images/ch04-berlin_wall.jpg" alt="柏林圍牆">
+<div class="story-image-caption">1961 年 — 柏林圍牆成為冷戰分裂的象徵</div>
+</div>
+</div>
+</div>
+<button class="btn-step-next" onclick="nextStep(2)">開始挑戰 ➜</button>
+</div>
+
+<!-- Step 2: Match Challenge (Event to Region) -->
+<div class="level-step" data-level="2" data-step="2">
+<div class="match-container" id="c4-l2-match">
+<div class="quiz-number">歷史事件配對挑戰</div>
+<div class="sort-instruction">🔗 請將左側的冷戰歷史事件，拖曳配對到右側對應的發生地區：</div>
+<div class="match-grid">
+<div class="match-left" id="c4-l2-match-left">
+<div class="match-item" data-match="europe" onclick="selectMatch(this, 'c4-l2')">1961年 柏林圍牆</div>
+<div class="match-item" data-match="america" onclick="selectMatch(this, 'c4-l2')">1962年 古巴飛彈危機</div>
+<div class="match-item" data-match="asia" onclick="selectMatch(this, 'c4-l2')">1950年 韓戰 / 1955年 越戰</div>
+<div class="match-item" data-match="middleeast" onclick="selectMatch(this, 'c4-l2')">1948年起 以阿衝突</div>
+</div>
+<div class="match-connector">
+<div style="height:48px;"></div>
+<div style="height:48px;"></div>
+<div style="height:48px;"></div>
+<div style="height:48px;"></div>
+</div>
+<div class="match-right" id="c4-l2-match-right">
+<div class="match-item" data-match="asia" onclick="selectMatch(this, 'c4-l2')">🌏 亞洲</div>
+<div class="match-item" data-match="middleeast" onclick="selectMatch(this, 'c4-l2')">🕌 中東地區</div>
+<div class="match-item" data-match="europe" onclick="selectMatch(this, 'c4-l2')">🌍 歐洲</div>
+<div class="match-item" data-match="america" onclick="selectMatch(this, 'c4-l2')">🌎 美洲</div>
+</div>
+</div>
+</div>
+<button class="btn-next-level" id="btn-next-2" onclick="goToLevel(3)">前往下一關 ➜</button>
+</div>
+</div>
+</div>
+
+<!-- ====== LEVEL 3: 第三世界的崛起 ====== -->
+<div class="screen" id="screen-level-3">
+<div class="level-screen">
+<div class="level-header">
+<div class="level-tag">關卡 3 / 5</div>
+<h1 class="level-title">🌍 第三世界的崛起</h1>
+<div class="level-era">1950s ~ 1980s</div>
+</div>
+
+<div class="step-indicator" id="step-indicator-3"></div>
+
+<!-- Step 1: Story -->
+<div class="level-step" data-level="3" data-step="1">
+<div class="story-section">
+<h3>📖 歷史故事</h3>
+<p class="story-text">
+第二次世界大戰後，歐洲殖民帝國實力衰退，亞洲、非洲等地的新興國家紛紛獨立。這些國家不願捲入美蘇兩大集團的對立，選擇互相結盟，在國際舞台上形成一股新興勢力，被稱為「<strong>第三世界</strong>」。
+</p>
+<p class="story-text">
+<strong>第三世界</strong>國家希望透過「<strong>不結盟運動</strong>」，在美蘇冷戰對峙中保持中立，避免成為強權博弈的棋子。他們共同面臨貧窮、落後等發展問題，試圖在國際舞台上發揮群體的影響力，謀求自身的發展與利益。
+</p>
+<p class="story-text">
+與之相對，<strong>美蘇兩極強權</strong>則主導了核武器與太空軍事競賽，投入大量資源發展毀滅性武器，並在世界各地扶植代理人，爭奪勢力範圍。
+</p>
+<div class="story-images">
+<div class="story-image-card" onclick="openLightbox('images/ch04-third-world.jpg', '第三世界國家分佈圖')">
+<img src="images/ch04-third-world.jpg" alt="第三世界">
+<div class="story-image-caption">第三世界 — 戰後新興獨立國家的崛起</div>
+</div>
+</div>
+</div>
+<button class="btn-step-next" onclick="nextStep(3)">開始挑戰 ➜</button>
+</div>
+
+<!-- Step 2: Categorize Challenge -->
+<div class="level-step" data-level="3" data-step="2">
+<div class="categorize-card" id="c4-l3-categorize">
+<div class="quiz-number">知識分類挑戰</div>
+<div class="sort-instruction">📋 冷戰時代的世界舞台被劃分為不同的勢力。請將下方的特徵拖曳分類為「兩極強權」或是「第三世界」：</div>
+<div class="drag-options" id="c4-l3-cat-options"></div>
+<div class="category-zones">
+<div class="category-zone" data-type="superpowers">
+<h4>⚡ 兩極強權（美/蘇集團）</h4>
+<div class="category-slots" data-type="superpowers">
+<div class="cat-slot" data-answer="主導核武與太空軍事競賽"></div>
+</div>
+</div>
+<div class="category-zone" data-type="thirdworld">
+<h4>🌍 第三世界</h4>
+<div class="category-slots" data-type="thirdworld">
+<div class="cat-slot" data-answer="由戰後新興獨立國家組成"></div>
+<div class="cat-slot" data-answer="不參與兩大陣營的軍事同盟"></div>
+</div>
+</div>
+</div>
+<button class="btn-check-fill" onclick="checkCategorizationLevel3()">✔️ 確認分類</button>
+</div>
+<button class="btn-next-level" id="btn-next-3" onclick="goToLevel(4)">前往下一關 ➜</button>
+</div>
+</div>
+</div>
+
+<!-- ====== LEVEL 4: 冷戰的結束與蘇聯解體 ====== -->
+<div class="screen" id="screen-level-4">
+<div class="level-screen">
+<div class="level-header">
+<div class="level-tag">關卡 4 / 5</div>
+<h1 class="level-title">🧱 冷戰的結束與蘇聯解體</h1>
+<div class="level-era">1985 ~ 1991 年</div>
+</div>
+
+<div class="step-indicator" id="step-indicator-4"></div>
+
+<!-- Step 1: Story -->
+<div class="level-step" data-level="4" data-step="1">
+<div class="story-section">
+<h3>📖 歷史故事</h3>
+<p class="story-text">
+1980 年代後期，蘇聯領袖<strong>戈巴契夫</strong>（Mikhail Gorbachev）推動「<strong>改革</strong>」（Perestroika）與「<strong>開放</strong>」（Glasnost）政策，放鬆黨政管制，引入市場經濟元素，允許言論自由。這些改革動搖了共產黨的統治基礎，引發了東歐共產政權的瓦解。
+</p>
+<p class="story-text">
+1989 年，東歐各國相繼爆發民主運動，最震撼世界的是<strong>柏林圍牆被民眾推倒</strong>，象徵冷戰隔離的結束。1990 年，<strong>東德與西德正式統一</strong>，結束了近半世紀的分裂。
+</p>
+<p class="story-text">
+1991 年，蘇聯各加盟共和國紛紛宣布獨立。<strong>獨立國家國協</strong>（CIS）成立，<strong>蘇聯正式解體</strong>。長達數十年的冷戰宣告結束，美國成為唯一的超級強權，世界格局從「兩極」走向「一超多強」的新局面。
+</p>
+<div class="story-images">
+<div class="story-image-card" onclick="openLightbox('images/ch04-gorbachev.jpg', '戈巴契夫推動改革')">
+<img src="images/ch04-gorbachev.jpg" alt="戈巴契夫">
+<div class="story-image-caption">戈巴契夫 — 推動改革與開放政策</div>
+</div>
+<div class="story-image-card" onclick="openLightbox('images/ch04-berlin_fall.jpg', '柏林圍牆倒塌')">
+<img src="images/ch04-berlin_fall.jpg" alt="柏林圍牆倒塌">
+<div class="story-image-caption">1989 年 — 柏林圍牆倒塌，冷戰結束的象徵</div>
+</div>
+</div>
+</div>
+<button class="btn-step-next" onclick="nextStep(4)">開始挑戰 ➜</button>
+</div>
+
+<!-- Step 2: Sort Challenge -->
+<div class="level-step" data-level="4" data-step="2">
+<div class="sort-container" id="c4-l4-sort">
+<div class="quiz-number">時序排序挑戰</div>
+<div class="sort-instruction">📋 歷史也是時間的學問！請將下列宣告「冷戰終結」的歷史事件，依照時間先後順序由上而下排列：</div>
+<div class="sort-items" id="c4-l4-sort-items"></div>
+<button class="btn-check-sort" onclick="checkSort('c4-l4')">✔️ 確認順序</button>
+</div>
+<button class="btn-next-level" id="btn-next-4" onclick="goToLevel(5)">前往下一關 ➜</button>
+</div>
+</div>
+</div>
+
+<!-- ====== LEVEL 5: 從兩極走向多元的當代社會挑戰 ====== -->
+<div class="screen" id="screen-level-5">
+<div class="level-screen">
+<div class="level-header">
+<div class="level-tag">關卡 5 / 5</div>
+<h1 class="level-title">🌐 從兩極走向多元的當代社會挑戰</h1>
+<div class="level-era">1991 年 ~ 至今</div>
+</div>
+
+<div class="step-indicator" id="step-indicator-5"></div>
+
+<!-- Step 1: Story -->
+<div class="level-step" data-level="5" data-step="1">
+<div class="story-section">
+<h3>📖 歷史故事</h3>
+<p class="story-text">
+冷戰雖已結束，世界走向多元並立，但和平並未真正降臨。因政治、經濟、宗教等價值差異造成的衝突，使得現代社會仍面臨諸多挑戰：
+</p>
+<p class="story-text">
+💣 <strong>區域衝突</strong>：巴爾幹半島種族衝突、中東戰爭、非洲內戰等區域性戰爭頻傳，造成大量難民與人道危機。
+</p>
+<p class="story-text">
+🕊️ <strong>恐怖襲擊</strong>：2001 年的「<strong>911 事件</strong>」，蓋達組織劫持民航客機攻擊美國紐約世界貿易中心，造成近三千人死亡，震驚全球。此後，恐怖主義成為各國共同面對的威脅。
+</p>
+<p class="story-text">
+🌏 <strong>全球性議題</strong>：氣候變遷、傳染病（如 COVID-19）、貧富差距、資源分配不均等問題，考驗著國際合作與人類的智慧。
+</p>
+<p class="story-text">
+這些挑戰時刻考驗著得來不易的和平與民主傳統，需要各國攜手合作，共同面對。
+</p>
+<div class="story-images">
+<div class="story-image-card" onclick="openLightbox('images/ch04-modern-challenges.jpg', '當代社會面臨的挑戰')">
+<img src="images/ch04-modern-challenges.jpg" alt="當代挑戰">
+<div class="story-image-caption">當代社會 — 恐怖主義、區域衝突與全球議題</div>
+</div>
+<div class="story-image-card" onclick="openLightbox('images/ch04-911.jpg', '911 事件')">
+<img src="images/ch04-911.jpg" alt="911 事件">
+<div class="story-image-caption">2001 年 — 911 事件，恐怖主義的威脅</div>
+</div>
+</div>
+</div>
+<button class="btn-step-next" onclick="nextStep(5)">開始挑戰 ➜</button>
+</div>
+
+<!-- Step 2: Quiz Challenge -->
+<div class="level-step" data-level="5" data-step="2">
+<div class="challenge-section">
+<div class="challenge-title">🎯 情境選擇題</div>
+<div class="quiz-card" id="c4-l5-q1">
+<div class="quiz-number">問題</div>
+<div class="quiz-question">
+在冷戰結束後的當今世界，我們面臨的「現代挑戰」主要指的是什麼？
+</div>
+<div class="quiz-options">
+<button class="quiz-option" onclick="checkAnswer(this, true, 'c4-l5-q1-exp')">
+<span class="option-letter">A</span>
+因各地政治、經濟落差與文化宗教價值觀不同，導致區域內部衝突與恐怖攻擊頻傳
+</button>
+<button class="quiz-option" onclick="checkAnswer(this, false, 'c4-l5-q1-exp')">
+<span class="option-letter">B</span>
+美國與蘇聯之間的核武競賽持續升溫，世界隨時可能爆發第三次世界大戰
+</button>
+<button class="quiz-option" onclick="checkAnswer(this, false, 'c4-l5-q1-exp')">
+<span class="option-letter">C</span>
+歐洲殖民帝國持續擴張，導致亞非新興國家難以獨立發展
+</button>
+<button class="quiz-option" onclick="checkAnswer(this, false, 'c4-l5-q1-exp')">
+<span class="option-letter">D</span>
+共產陣營與民主陣營的意識形態對立造成世界分裂
+</button>
+</div>
+<div class="quiz-explanation" id="c4-l5-q1-exp">
+冷戰結束後，美蘇兩極對立的格局瓦解，世界走向多元。然而，因各地政治、經濟發展落差，加上文化與宗教價值觀的差異，區域內部衝突與恐怖攻擊（如 911 事件）成為當代社會面臨的主要威脅。
+</div>
+</div>
+</div>
+<button class="btn-next-level" id="btn-next-5" onclick="showFinalScreen()">🏆 查看成績 ➜</button>
+</div>
+</div>
+</div>
+
+<!-- ====== FINAL SCREEN ====== -->
+<div class="screen" id="screen-final">
+<div class="final-screen">
+<div class="trophy-icon">🏆</div>
+<div class="final-congrats">
+<p class="final-congrats-line">🎊 恭喜 <span class="final-username" id="final-username">時間旅行者</span> 完成學習！</p>
+</div>
+<h1 class="final-title">獲得「冷戰見證者」歷史大師稱號</h1>
+<p class="welcome-subtitle" id="final-message">你已成功探索從兩極到多元的戰後世界，見證了冷戰的始末！</p>
+<div class="final-stats">
+<div class="stat-card">
+<div class="stat-value" id="final-score">0</div>
+<div class="stat-label">總得分</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="final-correct">0</div>
+<div class="stat-label">答對次數</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="final-stars">0</div>
+<div class="stat-label">獲得星星 ⭐</div>
+</div>
+</div>
+<button class="btn-restart" onclick="restartGame()">🔄 再玩一次</button>
+<button class="btn-back-portal" onclick="goToPortal()">🏠 回到入口</button>
+</div>
+</div>
+
+<!-- ====== LEVEL COMPLETE OVERLAY ====== -->
+<div class="level-complete-overlay" id="level-complete-overlay">
+<div class="level-complete-content">
+<div class="level-complete-icon" id="complete-icon">🎉</div>
+<h2 class="level-complete-title" id="complete-title">關卡完成！</h2>
+<div class="level-complete-score" id="complete-score">+100 分</div>
+<div class="stars-earned" id="stars-earned"></div>
+<button class="btn-continue" id="btn-complete-continue">繼續冒險 ➜</button>
+</div>
+</div>
+
+<!-- ====== LIGHTBOX ====== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<img id="lightbox-img" src="" alt="">
+<div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+function checkCategorizationLevel1() {
+checkCategorizationCustom('c4-l1', {
+usa: ['北大西洋公約組織', '防堵共產勢力擴張'],
+ussr: ['華沙公約組織', '擴張共產政權']
+});
+}
+
+function checkCategorizationLevel3() {
+checkCategorizationCustom('c4-l3', {
+superpowers: ['主導核武與太空軍事競賽'],
+thirdworld: ['由戰後新興獨立國家組成', '不參與兩大陣營的軍事同盟']
+});
+}
+
+function checkCategorizationCustom(levelKey, answers) {
+const challengeCard = document.getElementById(`${levelKey}-categorize`);
+if (!challengeCard) return;
+
+let allCorrect = true;
+let totalSlots = 0;
+let correctSlots = 0;
+
+Object.keys(answers).forEach(type => {
+const slots = challengeCard.querySelectorAll(`.category-slots[data-type="${type}"] .cat-slot`);
+const correctList = answers[type];
+
+slots.forEach(slot => {
+totalSlots++;
+const filled = slot.getAttribute('data-filled');
+if (correctList.includes(filled)) {
+slot.classList.remove('wrong-drop');
+slot.classList.add('correct-drop');
+correctSlots++;
+} else if (filled) {
+slot.classList.remove('correct-drop');
+slot.classList.add('wrong-drop');
+allCorrect = false;
+setTimeout(() => {
+slot.classList.remove('wrong-drop', 'filled');
+restoreCatDragChipCustom(levelKey, filled);
+slot.textContent = '';
+slot.setAttribute('data-filled', '');
+}, 1200);
+} else {
+allCorrect = false;
+}
+});
+});
+
+const challengeId = `${levelKey}-categorize`;
+if (allCorrect && correctSlots === totalSlots && !completedChallenges.has(challengeId)) {
+completedChallenges.add(challengeId);
+addScore(30, challengeCard);
+state.correctAnswers++;
+checkLevelComplete();
+}
+}
+
+function restoreCatDragChipCustom(levelKey, value) {
+const chips = document.getElementById(`${levelKey}-cat-options`).querySelectorAll('.drag-chip');
+chips.forEach(chip => {
+if (chip.getAttribute('data-value') === value) chip.classList.remove('chip-used');
+});
+}
+</script>
+</body>
+</html>

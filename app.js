@@ -22,9 +22,10 @@ let levelChallenges = {};
 let currentChapter = '1';
 
 const allLevelStepCounts = {
-  '1': { 1: 5, 2: 5, 3: 5, 4: 4, 5: 6 },
-  '2': { 1: 5, 2: 3, 3: 4, 4: 5, 5: 5 },
-  '3': { 1: 3, 2: 3, 3: 3, 4: 4 }
+'1': { 1: 5, 2: 5, 3: 5, 4: 4, 5: 6 },
+'2': { 1: 5, 2: 3, 3: 4, 4: 5, 5: 5 },
+'3': { 1: 3, 2: 3, 3: 3, 4: 4 },
+'4': { 1: 2, 2: 2, 3: 2, 4: 2, 5: 2 }
 };
 
 // ===== SORTING DATA =====
@@ -72,42 +73,52 @@ const allSortData = {
       ]
     }
   },
-  '3': {
-    'c3-l1': {
-      items: [
-        { id: 1, label: '二月革命 (推翻沙皇)', year: '1917年3月', order: 1 },
-        { id: 2, label: '十月革命 (建立政權)', year: '1917年11月', order: 2 },
-        { id: 3, label: '蘇聯正式成立', year: '1922年', order: 3 },
-        { id: 4, label: '實施計畫經濟', year: '1928年起', order: 4 }
-      ]
-    },
-    'c3-l2': {
-      items: [
-        { id: 1, label: '一戰後歐洲衰弱', year: '1', order: 1 },
-        { id: 2, label: '美國成為經濟強權', year: '2', order: 2 },
-        { id: 3, label: '歐洲逐漸復甦', year: '3', order: 3 },
-        { id: 4, label: '美國農工產品面臨供過於求', year: '4', order: 4 },
-        { id: 5, label: '美國開啟關稅保護', year: '5', order: 5 },
-        { id: 6, label: '各國仿效，形成關稅壁壘', year: '6', order: 6 },
-        { id: 7, label: '自由市場不再流動，經濟成一攤死水', year: '7', order: 7 },
-        { id: 8, label: '股市崩盤並蔓延全球', year: '8', order: 8 }
-      ]
-    },
-    'c3-l3': {
-      items: [
-        { id: 1, label: '盧溝橋事變', year: '1937年', order: 1 },
-        { id: 2, label: '慕尼黑會議', year: '1938年', order: 2 },
-        { id: 3, label: '德國併吞捷克', year: '1939年', order: 3 },
-        { id: 4, label: '德蘇互不侵犯條約', year: '1939年', order: 4 },
-        { id: 5, label: '德國入侵波蘭', year: '1939年', order: 5 },
-        { id: 6, label: '珍珠港事件', year: '1941年', order: 6 },
-        { id: 7, label: '開羅會議', year: '1943年', order: 7 },
-        { id: 8, label: '諾曼第登陸', year: '1944年', order: 8 },
-        { id: 9, label: '雅爾達會議', year: '1945年', order: 9 },
-        { id: 10, label: '日本投降', year: '1945年', order: 10 }
-      ]
-    }
-  }
+'3': {
+l1: {
+items: [
+{ id: 1, label: '二月革命 (推翻沙皇)', year: '1917年3月', order: 1 },
+{ id: 2, label: '十月革命 (建立政權)', year: '1917年11月', order: 2 },
+{ id: 3, label: '蘇聯正式成立', year: '1922年', order: 3 },
+{ id: 4, label: '實施計畫經濟', year: '1928年起', order: 4 }
+]
+},
+'c3-l2': {
+items: [
+{ id: 1, label: '一戰後歐洲衰弱', year: '1', order: 1 },
+{ id: 2, label: '美國成為經濟強權', year: '2', order: 2 },
+{ id: 3, label: '歐洲逐漸復甦', year: '3', order: 3 },
+{ id: 4, label: '美國農工產品面臨供過於求', year: '4', order: 4 },
+{ id: 5, label: '美國開啟關稅保護', year: '5', order: 5 },
+{ id: 6, label: '各國仿效，形成關稅壁壘', year: '6', order: 6 },
+{ id: 7, label: '自由市場不再流動，經濟成一攤死水', year: '7', order: 7 },
+{ id: 8, label: '股市崩盤並蔓延全球', year: '8', order: 8 }
+]
+},
+'c3-l3': {
+items: [
+{ id: 1, label: '盧溝橋事變', year: '1937年', order: 1 },
+{ id: 2, label: '慕尼黑會議', year: '1938年', order: 2 },
+{ id: 3, label: '德國併吞捷克', year: '1939年', order: 3 },
+{ id: 4, label: '德蘇互不侵犯條約', year: '1939年', order: 4 },
+{ id: 5, label: '德國入侵波蘭', year: '1939年', order: 5 },
+{ id: 6, label: '珍珠港事件', year: '1941年', order: 6 },
+{ id: 7, label: '開羅會議', year: '1943年', order: 7 },
+{ id: 8, label: '諾曼第登陸', year: '1944年', order: 8 },
+{ id: 9, label: '雅爾達會議', year: '1945年', order: 9 },
+{ id: 10, label: '日本投降', year: '1945年', order: 10 }
+]
+}
+},
+'4': {
+'c4-l4': {
+items: [
+{ id: 1, label: '戈巴契夫推動蘇聯政治與經濟改革', year: '1985年', order: 1 },
+{ id: 2, label: '象徵冷戰隔離的柏林圍牆被民眾推倒', year: '1989年', order: 2 },
+{ id: 3, label: '東德與西德正式統一', year: '1990年', order: 3 },
+{ id: 4, label: '獨立國家國協成立，蘇聯正式解體', year: '1991年', order: 4 }
+]
+}
+}
 };
 
 // ===== DRAG-DROP FILL DATA =====
@@ -122,23 +133,33 @@ const allDragFillData = {
     }
   },
   '2': {},
-  '3': {
-    'c3-l4': {
-      options: ['1914年', '1939年', '1918年', '1945年', '塞拉耶佛事件', '德國入侵波蘭', '同盟國 vs 協約國', '軸心國 vs 同盟國', '國際聯盟', '聯合國'],
-      blanks: [
-        { id: 'c3-l4-drop-1', answer: '1914年' },
-        { id: 'c3-l4-drop-2', answer: '塞拉耶佛事件' },
-        { id: 'c3-l4-drop-3', answer: '同盟國 vs 協約國' },
-        { id: 'c3-l4-drop-4', answer: '1918年' },
-        { id: 'c3-l4-drop-5', answer: '國際聯盟' },
-        { id: 'c3-l4-drop-6', answer: '1939年' },
-        { id: 'c3-l4-drop-7', answer: '德國入侵波蘭' },
-        { id: 'c3-l4-drop-8', answer: '軸心國 vs 同盟國' },
-        { id: 'c3-l4-drop-9', answer: '1945年' },
-        { id: 'c3-l4-drop-10', answer: '聯合國' }
-      ]
-    }
-  }
+'3': {
+'c3-l4': {
+options: ['1914年', '1939年', '1918年', '1945年', '塞拉耶佛事件', '德國入侵波蘭', '同盟國 vs 協約國', '軸心國 vs 同盟國', '國際聯盟', '聯合國'],
+blanks: [
+{ id: 'c3-l4-drop-1', answer: '1914年' },
+{ id: 'c3-l4-drop-2', answer: '塞拉耶佛事件' },
+{ id: 'c3-l4-drop-3', answer: '同盟國 vs 協約國' },
+{ id: 'c3-l4-drop-4', answer: '1918年' },
+{ id: 'c3-l4-drop-5', answer: '國際聯盟' },
+{ id: 'c3-l4-drop-6', answer: '1939年' },
+{ id: 'c3-l4-drop-7', answer: '德國入侵波蘭' },
+{ id: 'c3-l4-drop-8', answer: '軸心國 vs 同盟國' },
+{ id: 'c3-l4-drop-9', answer: '1945年' },
+{ id: 'c3-l4-drop-10', answer: '聯合國' }
+]
+}
+},
+'4': {
+'c4-l1': {
+options: ['北大西洋公約組織', '華沙公約組織', '防堵共產勢力擴張', '擴張共產政權'],
+blanks: []
+},
+'c4-l3': {
+options: ['主導核武與太空軍事競賽', '由戰後新興獨立國家組成', '不參與兩大陣營的軍事同盟'],
+blanks: []
+}
+}
 };
 
 // ===== LEVEL CHALLENGE TRACKING =====
@@ -157,12 +178,19 @@ const allLevelChallenges = {
     4: { quizzes: ['c2-l4-q1', 'c2-l4-q2', 'c2-l4-q3'], sort: 'c2-l4', dragfill: null, match: null, map: null, categorize: null },
     5: { quizzes: ['c2-l5-q1', 'c2-l5-q2', 'c2-l5-q3'], sort: null, dragfill: null, match: 'c2-l5', map: null, categorize: null },
   },
-  '3': {
-    1: { quizzes: [], sort: 'c3-l1', dragfill: null, match: 'c3-l1', map: null, categorize: null, multiselect: [] },
-    2: { quizzes: [], sort: 'c3-l2', dragfill: null, match: 'c3-l2', map: null, categorize: null, multiselect: [] },
-    3: { quizzes: [], sort: 'c3-l3', dragfill: null, match: 'c3-l3', map: null, categorize: null, multiselect: [] },
-    4: { quizzes: [], sort: null, dragfill: 'c3-l4', match: 'c3-l4', map: null, categorize: null, multiselect: ['c3-l4-multi1'] }
-  }
+'3': {
+1: { quizzes: [], sort: 'c3-l1', dragfill: null, match: 'c3-l1', map: null, categorize: null, multiselect: [] },
+2: { quizzes: [], sort: 'c3-l2', dragfill: null, match: 'c3-l2', map: null, categorize: null, multiselect: [] },
+3: { quizzes: [], sort: 'c3-l3', dragfill: null, match: 'c3-l3', map: null, categorize: null, multiselect: [] },
+4: { quizzes: [], sort: null, dragfill: 'c3-l4', match: 'c3-l4', map: null, categorize: null, multiselect: ['c3-l4-multi1'] }
+},
+'4': {
+1: { quizzes: [], sort: null, dragfill: null, match: null, map: null, categorize: 'c4-l1', multiselect: [] },
+2: { quizzes: [], sort: null, dragfill: null, match: 'c4-l2', map: null, categorize: null, multiselect: [] },
+3: { quizzes: [], sort: null, dragfill: null, match: null, map: null, categorize: 'c4-l3', multiselect: [] },
+4: { quizzes: [], sort: 'c4-l4', dragfill: null, match: null, map: null, categorize: null, multiselect: [] },
+5: { quizzes: ['c4-l5-q1'], sort: null, dragfill: null, match: null, map: null, categorize: null, multiselect: [] }
+}
 };
 
 const completedChallenges = new Set();
@@ -220,26 +248,26 @@ function initParticles() {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  currentChapter = document.body.getAttribute('data-chapter') || '1';
-  levelStepCounts = allLevelStepCounts[currentChapter] || allLevelStepCounts['1'];
-  sortData = allSortData[currentChapter] || {};
-  dragFillData = allDragFillData[currentChapter] || {};
-  levelChallenges = allLevelChallenges[currentChapter] || {};
+currentChapter = document.body.getAttribute('data-chapter') || '1';
+levelStepCounts = allLevelStepCounts[currentChapter] || allLevelStepCounts['1'];
+sortData = allSortData[currentChapter] || {};
+dragFillData = allDragFillData[currentChapter] || {};
+levelChallenges = allLevelChallenges[currentChapter] || {};
 
-  initParticles();
-  initAllSortItems();
-  initAllDragFills();
-  initAllMapChallenges();
-  initAllCategorizeChallenges();
-  
-  state.userName = sessionStorage.getItem('userName') || '時間旅行者';
-  state.currentLevel = 1;
-  const numLevels = Object.keys(levelChallenges).length || 5;
-  for (let lv = 1; lv <= numLevels; lv++) {
-    stepState[lv] = 1;
-    initStepIndicator(lv);
-  }
-  updateProgress();
+initParticles();
+initAllSortItems();
+initAllDragFills();
+initAllMapChallenges();
+initAllCategorizeChallenges();
+
+state.userName = sessionStorage.getItem('userName') || '時間旅行者';
+state.currentLevel = 1;
+const numLevels = Object.keys(levelChallenges).length || 5;
+for (let lv = 1; lv <= numLevels; lv++) {
+stepState[lv] = 1;
+initStepIndicator(lv);
+}
+updateProgress();
 });
 
 function initStepIndicator(level) {
@@ -264,40 +292,40 @@ function updateStepIndicator(level) {
 }
 
 function nextStep(level) {
-  const current = stepState[level];
-  const total = levelStepCounts[level];
-  if (current >= total) return;
-  const screen = document.getElementById(`screen-level-${level}`);
-  if (!screen) return;
-  const steps = screen.querySelectorAll('.level-step');
-  steps.forEach(s => s.classList.remove('active'));
-  stepState[level] = current + 1;
-  const nextEl = screen.querySelector(`.level-step[data-step="${stepState[level]}"]`);
-  if (nextEl) {
-    nextEl.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  updateStepIndicator(level);
+const current = stepState[level];
+const total = levelStepCounts[level];
+if (current >= total) return;
+const screen = document.getElementById(`screen-level-${level}`);
+if (!screen) return;
+const steps = screen.querySelectorAll('.level-step');
+steps.forEach(s => s.classList.remove('active'));
+stepState[level] = current + 1;
+const nextEl = screen.querySelector(`.level-step[data-step="${stepState[level]}"]`);
+if (nextEl) {
+nextEl.classList.add('active');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+updateStepIndicator(level);
 }
 
 // ===== NAVIGATION =====
 function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const screen = document.getElementById(screenId);
-  if (screen) {
-    screen.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    const levelMatch = screenId.match(/screen-level-(\d+)/);
-    if (levelMatch) {
-      const lv = parseInt(levelMatch[1]);
-      stepState[lv] = 1;
-      const steps = screen.querySelectorAll('.level-step');
-      steps.forEach(s => s.classList.remove('active'));
-      const first = screen.querySelector('.level-step[data-step="1"]');
-      if (first) first.classList.add('active');
-      initStepIndicator(lv);
-    }
-  }
+document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+const screen = document.getElementById(screenId);
+if (screen) {
+screen.classList.add('active');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+const levelMatch = screenId.match(/screen-level-(\d+)/);
+if (levelMatch) {
+const lv = parseInt(levelMatch[1]);
+stepState[lv] = 1;
+const steps = screen.querySelectorAll('.level-step');
+steps.forEach(s => s.classList.remove('active'));
+const first = screen.querySelector('.level-step[data-step="1"]');
+if (first) first.classList.add('active');
+initStepIndicator(lv);
+}
+}
 }
 
 function goToLevel(level) {
@@ -773,7 +801,9 @@ function selectMatch(item, levelKey) {
   if (item.classList.contains('matched')) return;
 
   if (!matchState[levelKey]) {
-    matchState[levelKey] = { selected: null, matchCount: 0, totalPairs: 3 };
+    const leftContainer = document.getElementById(`${levelKey}-match-left`);
+    const pairs = leftContainer ? leftContainer.querySelectorAll('.match-item').length : 3;
+    matchState[levelKey] = { selected: null, matchCount: 0, totalPairs: pairs };
   }
 
   const ms = matchState[levelKey];
@@ -895,11 +925,12 @@ function showLevelComplete(level, callback) {
   const stars = levelScore >= 80 ? 3 : levelScore >= 50 ? 2 : 1;
   state.totalStars += stars;
 
-  const allLevelNames = {
-    '1': ['美國獨立', '法國大革命', '拉丁美洲獨立', '德國統一', '義大利統一'],
-    '2': ['新帝國主義', '戰雲密布', '第一槍與戰火蔓延', '戰局轉折與結束', '巴黎和會與國際聯盟'],
-    '3': ['俄國革命與共產政權', '戰間期經濟波動與極權崛起', '二戰的爆發與進程', '大戰終局與全球新秩序']
-  };
+const allLevelNames = {
+'1': ['美國獨立', '法國大革命', '拉丁美洲獨立', '德國統一', '義大利統一'],
+'2': ['新帝國主義', '戰雲密布', '第一槍與戰火蔓延', '戰局轉折與結束', '巴黎和會與國際聯盟'],
+'3': ['俄國革命與共產政權', '戰間期經濟波動與極權崛起', '二戰的爆發與進程', '大戰終局與全球新秩序'],
+'4': ['冷戰時代的來臨與兩極對峙', '冷戰時期的區域熱戰與危機', '第三世界的崛起', '冷戰的結束與蘇聯解體', '從兩極走向多元的當代社會挑戰']
+};
   const levelNames = allLevelNames[currentChapter] || allLevelNames['1'];
   titleEl.textContent = `${levelNames[level - 1]} — 完成！`;
   scoreEl.textContent = `本關得分：${levelScore} 分`;
@@ -1124,15 +1155,21 @@ function initAllCategorizeChallenges() {
 }
 
 function initCategorizeChallenge(levelKey) {
-  const optionsContainer = document.getElementById(`${levelKey}-cat-options`);
-  if (!optionsContainer) return;
-  optionsContainer.innerHTML = '';
-  
-  let options = [];
-  if (levelKey === 'c2-l2') {
-    options = ['德國', '英國', '法國', '俄國', '奧匈帝國', '義大利'];
-  }
-  shuffleArray(options);
+const optionsContainer = document.getElementById(`${levelKey}-cat-options`);
+if (!optionsContainer) return;
+optionsContainer.innerHTML = '';
+
+let options = [];
+if (levelKey === 'c2-l2') {
+options = ['德國', '英國', '法國', '俄國', '奧匈帝國', '義大利'];
+}
+if (levelKey === 'c4-l1') {
+options = ['北大西洋公約組織', '華沙公約組織', '防堵共產勢力擴張', '擴張共產政權'];
+}
+if (levelKey === 'c4-l3') {
+options = ['主導核武與太空軍事競賽', '由戰後新興獨立國家組成', '不參與兩大陣營的軍事同盟'];
+}
+shuffleArray(options);
   
   options.forEach(opt => {
     const chip = document.createElement('div');

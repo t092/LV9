@@ -1,18 +1,29 @@
 import sys
-import subprocess
 
-try:
-    import pypdf
-except ImportError:
-    print("Installing pypdf...")
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pypdf', '--user'])
-    import pypdf
+pdf_path = 'c:/Users/grifo/OneDrive/AI/VibeVoding/CAI/LV9/L04.pdf'
 
+text = ""
 try:
-    reader = pypdf.PdfReader('L02.pdf')
-    with open('l02_text.txt', 'w', encoding='utf-8') as f:
+    import PyPDF2
+    with open(pdf_path, 'rb') as f:
+        reader = PyPDF2.PdfReader(f)
         for page in reader.pages:
-            f.write(page.extract_text() + '\n')
-    print('SUCCESS')
+            extracted = page.extract_text()
+            if extracted: text += extracted + "\n"
+    print("SUCCESS with PyPDF2")
 except Exception as e:
-    print(f'ERROR: {e}')
+    # print(f"PyPDF2 failed: {e}")
+    try:
+        import fitz # PyMuPDF
+        doc = fitz.open(pdf_path)
+        for page in doc:
+            extracted = page.get_text()
+            if extracted: text += extracted + "\n"
+        print("SUCCESS with fitz")
+    except Exception as e2:
+        # print(f"fitz failed: {e2}")
+        pass
+
+with open('c:/Users/grifo/OneDrive/AI/VibeVoding/CAI/LV9/pdf_content.txt', 'w', encoding='utf-8') as f:
+    f.write(text)
+print("Wrote text length:", len(text))
